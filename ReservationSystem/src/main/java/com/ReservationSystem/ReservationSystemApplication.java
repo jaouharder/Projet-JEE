@@ -8,7 +8,7 @@ public class ReservationSystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ReservationSystemApplication.class, args);
-		System.out.println("heloo world");
+		System.out.println("it works...");
 	}
 
 }

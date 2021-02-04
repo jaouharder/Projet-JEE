@@ -22,7 +22,7 @@ public class ReservationSystemApplication {
 			ResultSet result= stat.executeQuery("select * from agence;");
 			while(result.next()) {
 				 String address=result.getString("agence_name");
-				 String localisation=result.getString("localisation");
+				 String localisation=result.getString("localisation"); 
 				 int  disponibilite=result.getInt("disponibilite");
 				 System.out.println("addresse:"+address+",localisation :"+localisation+",disponobilte % :"+disponibilite);
 			}

@@ -26,10 +26,7 @@ public class ReservationSystemApplication {
 				 int  disponibilite=result.getInt("disponibilite");
 				 System.out.println("addresse:"+address+",localisation :"+localisation+",disponobilte % :"+disponibilite);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (SQLException e) {e.printStackTrace();}
 		
 	}
 

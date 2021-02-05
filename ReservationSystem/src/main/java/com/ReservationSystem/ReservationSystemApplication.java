@@ -16,7 +16,7 @@ public class ReservationSystemApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ReservationSystemApplication.class, args);	
-		try {
+		/*try {
 			Connection conx=JDBCONFIG.GetConx();
 			Statement stat=conx.createStatement();
 			ResultSet result= stat.executeQuery("select * from agence;");
@@ -25,9 +25,10 @@ public class ReservationSystemApplication {
 				 String localisation=result.getString("agence_name");
 				 int  disponibilite=result.getInt("disponibilite");
 				 System.out.println("addresse:"+address+",localisation :"+localisation+",disponobilte % :"+disponibilite);
+			
 			}
 		} catch (SQLException e) {e.printStackTrace();}
-		
+		*/
 	}
 
 }

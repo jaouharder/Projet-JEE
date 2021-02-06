@@ -90,7 +90,11 @@ public class AgenceDAO {
 		   
 	   }
 	   
-	
+	   //search for agencies sorted by proximity 
+	    public List<Agence> findbyProximity(){
+	    	  return null;
+	    	  /*not implemented yet*/
+	    }
 	
 	
 	

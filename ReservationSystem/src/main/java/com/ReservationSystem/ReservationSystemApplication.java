@@ -5,18 +5,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.ReservationSystem.configdb.JDBCONFIG;
 
 @SpringBootApplication
-public class ReservationSystemApplication {
+public class ReservationSystemApplication implements CommandLineRunner{
 
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ReservationSystemApplication.class, args);	
-		try {
+		
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		/*le code qui va être exécuté ne doit pas être dans la fonction main, doit être dans cette methode*/
+		/*
+		  try {
 			Connection conx=JDBCONFIG.GetConx();
 			Statement stat=conx.createStatement();
 			ResultSet result= stat.executeQuery("select * from agence;");
@@ -27,7 +35,8 @@ public class ReservationSystemApplication {
 				 System.out.println("addresse:"+address+",localisation :"+localisation+",disponobilte % :"+disponibilite);
 			
 			}
-		} catch (SQLException e) {e.printStackTrace();}
+		  } catch (SQLException e) {e.printStackTrace();}
+		*/
 		
 	}
 

@@ -7,9 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.ReservationSystem.configdb.JDBCONFIG;
 import com.ReservationSystem.model.Agence;
 
+@Component
 public class AgenceDAO {
 
 	Connection cnx=JDBCONFIG.GetConx();

@@ -1,6 +1,7 @@
 package com.ReservationSystem.dao;
 
 import com.ReservationSystem.configdb.JDBCONFIG;
+import com.ReservationSystem.model.Bureau;
 import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,7 @@ public class ReservationDAO {
                 int duree = resultSet.getInt("duree");
 
                 //TODO Adapt to class Bureau
-                Bureau bureau = Bureau.findById(resultSet.getString("bureau_id"));
+                Bureau bureau = BureauDAO.findById(resultSet.getInt("bureau_id"));
 
                 //TODO Choose the correct method between the 2 following:
 
@@ -76,7 +77,7 @@ public class ReservationDAO {
                 int duree = resultSet.getInt("duree");
 
                 //TODO Adapt to class Bureau
-                Bureau bureau = BureauDAO.findById(resultSet.getString("bureau_id"));
+                Bureau bureau = BureauDAO.findById(resultSet.getInt("bureau_id"));
 
                 //TODO Choose the correct method between the 2 following:
 

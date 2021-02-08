@@ -24,26 +24,29 @@ public class BureauDAO {
 	public static void getBureaux(int agenceId) {
 		//SpringApplication.run(BureauDAO.class, args);	
 		
-		/*try {
-			
-			Statement stat=conx.createStatement();
-			ResultSet resultagc=stat.executeQuery("select * from agence where agence_Id="+agenceId+";");
-			resultagc.next();
-			String agname=resultagc.getString("agence_name");
-			String localisation=resultagc.getString("localisation");
-			System.out.println("L'agence  : "+agname+"\nlocalisation : "+localisation+"\nIl y a les sevices suivant: ");
-			ResultSet result= stat.executeQuery("select * from bureau where agence_Id="+agenceId+";");
-			while(result.next()) {
-				 String srv=result.getString("service");
-				 int  disponibilite=result.getInt("bureau_disponibilite");
-				 System.out.println("Service : "+srv+"   -----   disponibilte : "+disponibilite+" %");			 
-			}
-		} catch (SQLException e) {e.printStackTrace();}
-		*/
+		/*
+		 * try {
+		 * 
+		 * Statement stat=conx.createStatement(); ResultSet
+		 * resultagc=stat.executeQuery("select * from agence where agence_Id="+agenceId+
+		 * ";");
+		 * 
+		 * if (!resultagc.next()) { System.out.println(" INVALID");} else { String
+		 * agname=resultagc.getString("agence_name"); String
+		 * localisation=resultagc.getString("localisation");
+		 * System.out.println("L'agence  : "+agname+"\nlocalisation : "
+		 * +localisation+"\nIl y a les sevices suivant: "); ResultSet result=
+		 * stat.executeQuery("select * from bureau where agence_Id="+agenceId+";");
+		 * while(result.next()) { String srv=result.getString("service"); int
+		 * disponibilite=result.getInt("bureau_disponibilite");
+		 * System.out.println("Service : "+srv+"   -----   disponibilte : "
+		 * +disponibilite+" %"); } } }catch (SQLException e) {e.printStackTrace();}
+		 */	
 	}
 public static void main(String[] args) throws SQLException {
 	SpringApplication.run(BureauDAO.class, args);
-	findById(1);
+	getBureaux(8);
+	//findById(1);
 	}
 public static Bureau findById(int bureauId) throws SQLException {
 	
@@ -60,15 +63,17 @@ public static Bureau findById(int bureauId) throws SQLException {
 public static String authentification(String username,String password,int bureauId) throws SQLException {
 	Statement stat=conx.createStatement();
 	ResultSet result=stat.executeQuery("select * from employee where username="+username+";");
-	result.next();
-	if(password.equals(result.getString("password"))) {
-		ResultSet resultagc=stat.executeQuery("UPDATE employee SET bureau_Id="+bureauId+" WHERE username="+username+";");
+	
+	if(!result.next()) return "INVALID USERNAME";
+	else if(password.equals(result.getString("password"))) {
+		int Rows=stat.executeUpdate("UPDATE employee SET bureau_Id="+bureauId+" WHERE username="+username+";");
 		return "ACCESS GAINED";
 	}
-	else {
-		return "INCORRECT PASSWORD";
+	    else {
+		     return "INCORRECT PASSWORD";
+	}
 	}
 }
 
-}
+
 

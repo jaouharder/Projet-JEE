@@ -2,13 +2,13 @@ package com.ReservationSystem.model;
 
 public class Client {
 	//variables
-		private int cin;
+		private String cin;
 		private String nom;
 		private String prenom;
 		private String localisation;
 		private String email;
-	//constructor
-		public Client(int cin, String nom, String prenom, String localisation, String email) {
+	//constructor with all variables
+		public Client(String cin, String nom, String prenom, String localisation, String email) {
 			super();
 			this.cin = cin;
 			this.nom = nom;
@@ -16,11 +16,20 @@ public class Client {
 			this.localisation = localisation;
 			this.email = email;
 		}
+	//constructor without localisation
+				public Client(String cin, String nom, String prenom, String email) {
+					super();
+					this.cin = cin;
+					this.nom = nom;
+					this.prenom = prenom;
+					this.email = email;
+				}
+
 	//getters & setters
-		public int getCin() {
+		public String getCin() {
 			return cin;
 		}
-		public void setCin(int cin) {
+		public void setCin(String cin) {
 			this.cin = cin;
 		}
 		public String getNom() {

@@ -1,6 +1,9 @@
 package com.ReservationSystem.model;
 
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Time;
 import java.time.Duration;
 import java.time.Instant;
@@ -17,7 +20,7 @@ public class Reservation {
     private int duree;
 
     //TODO Check whether reservationId should be removed or not
-    public Reservation(int reservationId, @NotNull Time horaire, @NotNull Bureau bureau, @NotNull Client client) {
+    public Reservation(@JsonProperty("reservationId") int reservationId,@JsonProperty("horaire") @NotNull Time horaire,@JsonProperty("bureau") @NotNull Bureau bureau,@JsonProperty("client") @NotNull Client client) {
         this.reservationId = reservationId;
         this.horaire = horaire;
         this.bureau = bureau;

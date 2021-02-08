@@ -1,9 +1,15 @@
 package com.ReservationSystem.dao;
 
+
 import com.ReservationSystem.configdb.JDBCONFIG;
 import com.ReservationSystem.model.Bureau;
 import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -14,10 +20,14 @@ import java.util.List;
 public class ReservationDAO {
 
     Connection connection = JDBCONFIG.GetConx();
+    
     Statement statement;
     ResultSet resultSet;
     String query;
-
+    
+    
+    
+    
     public List<Reservation> findAll() {
 
         try {
@@ -157,9 +167,15 @@ public class ReservationDAO {
         }
     }
 
-
-    public void sendEmailVerification(Reservation reservation) {
-        //TODO Setup email
+    //we can do better email/subject/body must be read from a file or something like that
+    public void sendEmailVerification(Reservation reservation, JavaMailSender javamailsender) {
+		SimpleMailMessage mail=new SimpleMailMessage();
+		mail.setTo(reservation.getClient().getEmail());
+		mail.setFrom("mohammedouttaleb245@gmail.com");
+		mail.setSubject("Bank Reservation");
+		mail.setText("Bonjour Mr "+reservation.getClient().getPrenom()+".\nNous vous confirmons que vous avez bien reserever votre place à l'agence... \nVoici votre clé de reservation : "+reservation.getReservationId()+".\nCordialement.");
+		javamailsender.send(mail);
+		 System.out.println("Mail sent ");
         return;
     }
 

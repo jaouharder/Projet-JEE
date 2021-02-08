@@ -1,19 +1,29 @@
 package com.ReservationSystem.controllers;
 
 import com.ReservationSystem.dao.ReservationDAO;
+import com.ReservationSystem.model.Bureau;
+import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
 import java.util.List;
 
-@Controller
+@RestController
 public class ReservationController {
 
     @Autowired
     private ReservationDAO reservationDAO;
+    
+    @Autowired
+	  JavaMailSender javamailsender;
+	  
+	  
+	  
 
 
     @PostMapping("/addreservation")
@@ -47,4 +57,11 @@ public class ReservationController {
     public void removeReservation(@PathVariable(value = "id") int reservationId) {
         reservationDAO.deleteReservation(reservationId);
     }
+    
+    
+    
+    @PostMapping("/sendmail")
+	public void SendMail(@RequestBody Reservation reservation) {
+    	reservationDAO.sendEmailVerification(reservation, javamailsender);		  
+	}
 }

@@ -1,13 +1,16 @@
 package com.ReservationSystem.dao;
 
 import com.ReservationSystem.configdb.JDBCONFIG;
+import com.ReservationSystem.model.Bureau;
 import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ReservationDAO {
 
     Connection connection = JDBCONFIG.GetConx();
@@ -30,7 +33,7 @@ public class ReservationDAO {
                 int duree = resultSet.getInt("duree");
 
                 //TODO Adapt to class Bureau
-                Bureau bureau = Bureau.findById(resultSet.getString("bureau_id"));
+                Bureau bureau = BureauDAO.findById(resultSet.getInt("bureau_id"));
 
                 //TODO Choose the correct method between the 2 following:
 
@@ -74,7 +77,7 @@ public class ReservationDAO {
                 int duree = resultSet.getInt("duree");
 
                 //TODO Adapt to class Bureau
-                Bureau bureau = BureauDAO.findById(resultSet.getString("bureau_id"));
+                Bureau bureau = BureauDAO.findById(resultSet.getInt("bureau_id"));
 
                 //TODO Choose the correct method between the 2 following:
 
@@ -82,7 +85,7 @@ public class ReservationDAO {
                 //Client client = Client.findById(resultSet.getString("cin_client"));
 
                 //Method #2
-                //type of cin is int in class Client, should be Strind for example AB12345
+                //type of cin is int in class Client, should be String for example AB12345
                 int cin = resultSet.getInt("cin_client");
                 String prenom = resultSet.getString("prenom_client");
                 String nom = resultSet.getString("nom_client");

@@ -23,7 +23,7 @@ public class ReservationSystemApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		/*le code qui va être exécuté ne doit pas être dans la fonction main, doit être dans cette methode*/
-		/*
+		
 		  try {
 			Connection conx=JDBCONFIG.GetConx();
 			Statement stat=conx.createStatement();
@@ -36,7 +36,7 @@ public class ReservationSystemApplication implements CommandLineRunner{
 			
 			}
 		  } catch (SQLException e) {e.printStackTrace();}
-		*/
+		
 		
 	}
 

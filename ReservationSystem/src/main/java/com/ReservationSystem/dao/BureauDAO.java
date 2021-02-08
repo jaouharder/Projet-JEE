@@ -57,6 +57,18 @@ public static Bureau findById(int bureauId) throws SQLException {
 	Bureau br = new Bureau(id,service,dispo,agc);
 	return br;
 }
+public static String authentification(String username,String password,int bureauId) throws SQLException {
+	Statement stat=conx.createStatement();
+	ResultSet result=stat.executeQuery("select * from employee where username="+username+";");
+	result.next();
+	if(password.equals(result.getString("password"))) {
+		ResultSet resultagc=stat.executeQuery("UPDATE employee SET bureau_Id="+bureauId+" WHERE username="+username+";");
+		return "ACCESS GAINED";
+	}
+	else {
+		return "INCORRECT PASSWORD";
+	}
+}
 
 }
 

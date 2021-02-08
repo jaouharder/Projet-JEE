@@ -56,7 +56,7 @@ public static Bureau findById(int bureauId) throws SQLException {
 	int id = resultagc.getInt("bureau_Id");
 	String service=resultagc.getString("service");
 	int dispo=resultagc.getInt("bureau_disponibilite");
-	Agence agc= AgenceDAO.getAgncebyId(resultagc.getInt("agence_Id")); 
+	Agence agc= AgenceDAO.findById(resultagc.getInt("agence_Id")); 
 	Bureau br = new Bureau(id,service,dispo,agc);
 	return br;
 }

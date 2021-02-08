@@ -34,8 +34,7 @@ public class AgenceDAO {
 				 int  id=result.getInt("agence_id"); 
 			     String nom=result.getString("agence_name");
 				 String localisation=result.getString("localisation");
-				 int  disponibilite=result.getInt("disponibilite");
-			     Agence agence=new Agence( nom, localisation, disponibilite);
+			     Agence agence=new Agence( nom, localisation);
 			     agence.setId(id);
 			     agenceList.add(agence);
 			}
@@ -55,10 +54,8 @@ public class AgenceDAO {
 				 int  id=result.getInt("agence_id"); 
 			     String nom=result.getString("agence_name");
 				 String localisation=result.getString("localisation");
-				 int  disponibilite=result.getInt("disponibilite");
-				 Agence agence=new Agence(nom,localisation,disponibilite);
-				 agence.setId(id);
-				 
+				 Agence agence=new Agence(nom,localisation);
+				 agence.setId(id);		 
 				 return agence;
 			 }
 			  return null;
@@ -69,35 +66,7 @@ public class AgenceDAO {
 		 
 	}
 	  
-	   //search for an agencies sorted by availability
-	    
-	   public List<Agence> findbyAvailability(){
-		   
-		   try {
-				 stat=cnx.createStatement();
-				 List<Agence> agenceList=new ArrayList<Agence>();
-				 query="select * from agence order by disponibilite asc;";
-				 result= stat.executeQuery(query);
-				while(result.next()) {
-				
-					 int  id=result.getInt("agence_id"); 
-				     String nom=result.getString("agence_name");
-					 String localisation=result.getString("localisation");
-					 int  disponibilite=result.getInt("disponibilite");
-				     Agence agence=new Agence( nom, localisation, disponibilite);
-				     agence.setId(id);
-				     agenceList.add(agence);
-				}
-				 return agenceList;
-			} catch (SQLException e) {	e.printStackTrace(); return null;	}
-		   
-	   }
-	   
-	   //search for agencies sorted by proximity 
-	    public List<Agence> findbyProximity(){
-	    	  return null;
-	    	  /*not implemented yet*/
-	    }
+	  
 	
 	
 	
@@ -107,7 +76,7 @@ public class AgenceDAO {
 	public void createAgency(Agence agence) {
 		 try {
 			stat=cnx.createStatement();
-			query="INSERT INTO AGENCE(agence_name,localisation,disponibilite) VALUES('"+agence.getNom()+"','"+agence.getLocalisation()+"',"+agence.getDisponibilite()+");";
+			query="INSERT INTO AGENCE(agence_name,localisation) VALUES('"+agence.getNom()+"','"+agence.getLocalisation()+");";
 			stat.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,17 +84,7 @@ public class AgenceDAO {
 	}
 	
 	
-	//update availability of an agency
-		public void UpdateAvailability(int agence_id,int dispo) {
-			 try {
-				stat=cnx.createStatement();
-				query="UPDATE AGENCE SET DISPONIBILITE="+dispo+"where agence_id="+agence_id+";";
-				stat.executeUpdate(query);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 	
-		}
 	
 	
 	

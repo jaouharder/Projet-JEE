@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,10 +39,10 @@ public class AgenceController {
 	  }
 	
 	
-	  @GetMapping("/searchbyavailability")
-      public List<Agence> Agenciesbyavailability() {
+	  @GetMapping("/agency/id")
+      public Agence GetAgencybyID(@PathVariable(name = "id") int agence_id) {
 	       
-		  return  agence_service.findbyAvailability();   	
+		  return  agence_service.findById(agence_id);   	
 	}
 	
 }

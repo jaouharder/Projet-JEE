@@ -1,7 +1,5 @@
 package com.ReservationSystem.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Client {
 	//variables
 		private String cin;
@@ -9,13 +7,12 @@ public class Client {
 		private String prenom;
 		private String localisation;
 		private String email;
-<<<<<<< HEAD
-	//constructor
-		public Client( int cin, String nom, String prenom, String localisation, String email) {
-=======
+
+	
+
 	//constructor with all variables
 		public Client(String cin, String nom, String prenom, String localisation, String email) {
->>>>>>> branch 'main' of https://github.com/jaouharder/Projet-JEE.git
+
 			super();
 			this.cin = cin;
 			this.nom = nom;

@@ -22,7 +22,7 @@ public class AgenceController {
 	  
 	  
 	  
-	  /*validation dont work i dont know why !!!!!!!!!!!!*/
+	  /*validation dont work i dont know why !!!!!!!!!*/
 	  @PostMapping("/addagency")
 	  public boolean addAgency(@RequestBody @Valid Agence agence,Errors err ) {
 		  if(err.hasErrors()) {

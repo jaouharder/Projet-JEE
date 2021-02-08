@@ -6,10 +6,9 @@ import com.ReservationSystem.model.Bureau;
 import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -52,15 +51,12 @@ public class ReservationDAO {
 
                 //Method #2
                 //type of cin is int in class Client, should be String for example AB12345
-                int cin = resultSet.getInt("cin_client");
+                String cin = resultSet.getString("cin_client");
                 String prenom = resultSet.getString("prenom_client");
                 String nom = resultSet.getString("nom_client");
-
-                String localisation = "temporary... See TODO";  //TODO Find solution for: the table reservation doesn't contain "localisation" to create Client
-                //possible solution is get "localisation" from Bureau
-
                 String email = resultSet.getString("email_client");
-                Client client = new Client(cin, nom, prenom, localisation, email);
+                
+                Client client = new Client(cin, nom, prenom, email);
 
                 Reservation reservation = new Reservation(reservationId, horaire, bureau, client, duree);
                 reservations.add(reservation);
@@ -72,7 +68,38 @@ public class ReservationDAO {
             return null;
         }
     }
+//find reservation by her id and client cin
+    public Reservation findByIdAndCin(int reservationId, String cin) {
+    	try {
+            statement = connection.createStatement();
+            query = "select * from reservation " +
+                    "where reservation_id = " + reservationId + "and cin_client="+ cin +";";
+            resultSet = statement.executeQuery(query);
 
+            if(resultSet.next()) {
+                Time horaire = resultSet.getTime("horaire");
+                int duree = resultSet.getInt("duree");
+
+                //TODO Adapt to class Bureau
+                Bureau bureau = BureauDAO.findById(resultSet.getInt("bureau_id"));
+
+                String prenom = resultSet.getString("prenom_client");
+                String nom = resultSet.getString("nom_client");
+                String email = resultSet.getString("email_client");
+                
+                Client client = new Client(cin, nom, prenom, email);
+
+                Reservation reservation =new Reservation(reservationId, horaire, bureau, client, duree);
+                return reservation;
+            }
+            else return null;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
+    	
     //TODO Check if these methods need to be static
 
     public Reservation findById(int reservationId) {
@@ -82,29 +109,19 @@ public class ReservationDAO {
                     "where reservation_id = " + reservationId + ";";
             resultSet = statement.executeQuery(query);
 
-            if (resultSet.next()) {
+             if(resultSet.next()) {
                 Time horaire = resultSet.getTime("horaire");
                 int duree = resultSet.getInt("duree");
 
                 //TODO Adapt to class Bureau
                 Bureau bureau = BureauDAO.findById(resultSet.getInt("bureau_id"));
 
-                //TODO Choose the correct method between the 2 following:
-
-                //Method #1
-                //Client client = Client.findById(resultSet.getString("cin_client"));
-
-                //Method #2
-                //type of cin is int in class Client, should be String for example AB12345
-                int cin = resultSet.getInt("cin_client");
+                String cin = resultSet.getString("cin_client");
                 String prenom = resultSet.getString("prenom_client");
                 String nom = resultSet.getString("nom_client");
-
-                String localisation = "temporary... See TODO";  //TODO Find solution for: the table reservation doesn't contain "localisation" to create Client
-                //possible solution is get "localisation from Bureau
-
                 String email = resultSet.getString("email_client");
-                Client client = new Client(cin, nom, prenom, localisation, email);
+                
+                Client client = new Client(cin, nom, prenom, email);
 
                 return new Reservation(reservationId, horaire, bureau, client, duree);
             }
@@ -123,7 +140,7 @@ public class ReservationDAO {
             Time horaire = reservation.getHoraire();
             int duree = reservation.getDuree();
             Client client = reservation.getClient();
-            int bureauId = reservation.getBureau().getBureauId; //TODO Adapt to class Bureau
+            int bureauId = reservation.getBureau().getBureauId(); //TODO Adapt to class Bureau
 
             //TODO change cin to work as a String if changed in class Client
             query ="INSERT INTO reservation(cin_client, nom_client, prenom_client, email_client, horaire, duree, bureau_id) " +

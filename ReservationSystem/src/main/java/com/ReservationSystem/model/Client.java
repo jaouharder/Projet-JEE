@@ -1,5 +1,7 @@
 package com.ReservationSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Client {
 	//variables
 		private int cin;
@@ -8,7 +10,7 @@ public class Client {
 		private String localisation;
 		private String email;
 	//constructor
-		public Client(int cin, String nom, String prenom, String localisation, String email) {
+		public Client( int cin, String nom, String prenom, String localisation, String email) {
 			super();
 			this.cin = cin;
 			this.nom = nom;

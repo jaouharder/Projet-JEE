@@ -16,6 +16,7 @@ public class Bureau {
 	private int bureau_disp;
 	@NotNull
 	private Agence agence;
+	private boolean isavailable;
 	
 	public Bureau() {
 		super();
@@ -23,17 +24,30 @@ public class Bureau {
 
 	
 
+	public boolean isIsavailable() {
+		return isavailable;
+	}
+
+
+
+	public void setIsavailable(boolean isavailable) {
+		this.isavailable = isavailable;
+	}
+
+
+
 	public Bureau(int bureauId) {
 		super();
 		this.bureauId = bureauId;
 	}
 
-	public Bureau(int bureauId, @NotNull String service, @NotNull int bureau_disp, @NotNull Agence agence) {
+	public Bureau(int bureauId, @NotNull String service, @NotNull int bureau_disp, @NotNull Agence agence,boolean isavailable) {
 		super();
 		this.bureauId = bureauId;
 		this.service = service;
 		this.bureau_disp = bureau_disp;
 		this.agence = agence;
+		this.isavailable=isavailable;
 	}
 	public int getBureauId() {
 		return bureauId;
@@ -44,10 +58,11 @@ public class Bureau {
 	public String getService() {
 		return service;
 	}
-	public Bureau(@NotNull String service, @NotNull Agence agence) {
+	public Bureau(@NotNull String service, @NotNull Agence agence,int bureau_disp) {
 		super();
 		this.service = service;
 		this.agence = agence;
+		this.bureau_disp=bureau_disp;
 	}
 
 

@@ -14,6 +14,7 @@ import java.sql.Time;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class ReservationController {
 
     @Autowired
@@ -37,8 +38,9 @@ public class ReservationController {
         }
     }
 
-    @GetMapping("/reservations")
+    @GetMapping("reservations")
     public List<Reservation> getAllReservations() {
+    	System.out.println("reserva");
         return reservationDAO.findAll();
     }
 
@@ -47,15 +49,18 @@ public class ReservationController {
         return reservationDAO.findById(reservationId);
     }
 
-    @PatchMapping("/updatereservation/{id}")
+    @PutMapping("updatereservation/{id}")
     public void updateReservation(@RequestBody Reservation reservation,
                                   @PathVariable(value = "id") int reservationId) {
+    	System.out.println("update controller");
         reservationDAO.updateReservation(reservationId, reservation.getHoraire(), reservation.getBureau().getBureauId());
     }
 
-    @DeleteMapping("/deletereservation/{id}")
-    public void removeReservation(@PathVariable(value = "id") int reservationId) {
-        reservationDAO.deleteReservation(reservationId);
+    @DeleteMapping("deletereservation/{id}")
+    public boolean removeReservation(@PathVariable(value = "id") int reservationId) {
+    	System.out.println("delete controller");
+    	//reservationDAO.deleteReservation(reservationId);
+    	return true;
     }
     
     

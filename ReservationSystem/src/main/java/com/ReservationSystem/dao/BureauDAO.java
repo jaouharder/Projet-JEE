@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Component;
 
 import com.ReservationSystem.configdb.JDBCONFIG;
 import com.ReservationSystem.model.Agence;
@@ -98,6 +99,42 @@ public  String authentification(String username,String password,int bureauId) th
 		     return "INCORRECT PASSWORD";
 	}
 	}
+
+
+
+
+
+public  List<Bureau> getBureauxByAgId(int AgId) { 
+	  try {
+	  Statement stat=conx.createStatement(); 
+	  List<Bureau> bureaux= new ArrayList<Bureau>();
+	  String query="SELECT * FROM bureau WHERE agence_Id="+AgId+";";
+	  ResultSet resultagc=stat.executeQuery(query);
+	  while(resultagc.next()) {
+	  int id = resultagc.getInt("bureau_Id");
+	     int avb=resultagc.getInt("bureau_availability");
+	     String service=resultagc.getString("service");
+	     Bureau br = new Bureau(id,service,avb,true);
+	     bureaux.add(br);
+	     }
+	  return bureaux;
+	  
+	  }catch (SQLException e) {e.printStackTrace();}
+	return null;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

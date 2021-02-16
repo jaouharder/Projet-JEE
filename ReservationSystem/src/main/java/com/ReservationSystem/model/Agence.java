@@ -17,21 +17,26 @@ public class Agence {
 	 @NotNull
 	 @Size(min = 1,max = 6)
 	 private String localisation;
-	//we have to add attribute to this class
+	 
+	 private float latitude;
+	 
+	 private float longitude;
 	 private  List<Bureau> bureauList;
 	 
 	 
+	 
 	
-	 public Agence(@NotNull @Size(min = 1, max = 6) String nom, @NotNull @Size(min = 1, max = 6) String localisation) {
-		    setNom(nom);
-			setLocalisation(localisation);
-		}
-	 
-	 
-	 
-	 
-	 
-	 
+
+	public Agence(@NotNull @Size(min = 1, max = 6) String nom,
+			@NotNull @Size(min = 1, max = 6) String localisation, float latitude, float longitude,
+			List<Bureau> bureauList) {
+		this.nom = nom;
+		this.localisation = localisation;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.bureauList = bureauList;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -51,6 +56,55 @@ public class Agence {
 	}
 	public void setLocalisation(String localisation) {		
 		this.localisation = localisation;
+	}
+
+	public float getLatitude() {
+		return latitude;
+	}
+
+
+
+
+
+
+	public void setLatitude(float latitude) {
+		this.latitude = latitude;
+	}
+
+
+
+
+
+
+	public float getLongitude() {
+		return longitude;
+	}
+
+
+
+
+
+
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
+	}
+
+
+
+
+
+
+	public List<Bureau> getBureauList() {
+		return bureauList;
+	}
+
+
+
+
+
+
+	public void setBureauList(List<Bureau> bureauList) {
+		this.bureauList = bureauList;
 	}
 
 

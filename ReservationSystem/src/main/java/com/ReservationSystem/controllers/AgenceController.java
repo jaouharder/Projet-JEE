@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.ReservationSystem.model.Agence;
 
 
 @RestController
+@CrossOrigin
 public class AgenceController {
       
 	  @Autowired
@@ -27,7 +29,6 @@ public class AgenceController {
 	  @PostMapping("/addagency")
 	  public boolean addAgency(@RequestBody @Valid Agence agence,Errors err ) {
 		  if(err.hasErrors()) {
-			  //System.out.println(agence);
 			  return false;
 		  }
 		   agence_service.createAgency(agence);
@@ -36,6 +37,7 @@ public class AgenceController {
 	  
 	  @GetMapping("/agencies")
 	  public List<Agence> GetAllAgencies(){
+		  System.out.println("Get");
 		  return agence_service.findAll();
 	  }
 	

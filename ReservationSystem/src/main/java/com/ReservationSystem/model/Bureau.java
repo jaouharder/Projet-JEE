@@ -24,6 +24,16 @@ public class Bureau {
 
 	
 
+	public Bureau(int id,@NotNull String service, @NotNull int bureau_disp, boolean isavailable) {
+		super();
+		this.bureauId=id;
+		this.service = service;
+		this.bureau_disp = bureau_disp;
+		this.isavailable = isavailable;
+	}
+
+
+
 	public boolean isIsavailable() {
 		return isavailable;
 	}

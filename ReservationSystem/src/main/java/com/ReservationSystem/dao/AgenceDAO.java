@@ -7,18 +7,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ReservationSystem.configdb.JDBCONFIG;
 import com.ReservationSystem.model.Agence;
+import com.ReservationSystem.model.Bureau;
 
 @Component
 public class AgenceDAO {
 
-	Connection cnx=JDBCONFIG.GetConx();
-	Statement stat;
-	ResultSet result;
-	String query;
+	private Connection cnx=JDBCONFIG.GetConx();
+ 
+	private Statement stat;
+	private ResultSet result;
+	private String query;
 	
 	
 	//select all agencies
@@ -34,7 +37,12 @@ public class AgenceDAO {
 				 int  id=result.getInt("agence_id"); 
 			     String nom=result.getString("agence_name");
 				 String localisation=result.getString("localisation");
-			     Agence agence=new Agence( nom, localisation);
+				 float latitude=result.getFloat("latitude");
+				 float longitude=result.getFloat("longitude");
+				 BureauDAO bureau_service=new BureauDAO();
+				 List<Bureau> bureauList= bureau_service.getBureauxByAgId(id);
+				 
+				 Agence agence=new Agence(nom,localisation,latitude,longitude,bureauList);
 			     agence.setId(id);
 			     agenceList.add(agence);
 			}
@@ -54,7 +62,11 @@ public class AgenceDAO {
 				 int  id=result.getInt("agence_id"); 
 			     String nom=result.getString("agence_name");
 				 String localisation=result.getString("localisation");
-				 Agence agence=new Agence(nom,localisation);
+				 float latitude=result.getFloat("latitude");
+				 float longitude=result.getFloat("latitude");
+				 BureauDAO bureau_service=new BureauDAO();
+				 List<Bureau> bureauList= bureau_service.getBureauxByAgId(id);
+				 Agence agence=new Agence(nom,localisation,latitude,longitude,bureauList);
 				 agence.setId(id);		 
 				 return agence;
 			 }
@@ -76,7 +88,7 @@ public class AgenceDAO {
 	public void createAgency(Agence agence) {
 		 try {
 			stat=cnx.createStatement();
-			query="INSERT INTO AGENCE(agence_name,localisation) VALUES('"+agence.getNom()+"','"+agence.getLocalisation()+");";
+			query="INSERT INTO AGENCE(agence_name,localisation,latitude,longitude) VALUES('"+agence.getNom()+"','"+agence.getLocalisation()+"',"+agence.getLatitude()+","+agence.getLongitude()+");";
 			stat.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();

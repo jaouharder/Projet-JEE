@@ -1,209 +1,149 @@
-/**
- * 
- */
-/**
- * 
- */
- 
-// Add your Mapbox access token
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYmVuZXR0YWxlYiIsImEiOiJja2w3NWV1dnMyZXp4MnZsYjB1ZW9qcDVjIn0.fSUhZIwlPmxnd95ioh7e-Q';
-//create our map     
+mapboxgl.accessToken = 'pk.eyJ1IjoiYmVuZXR0YWxlYiIsImEiOiJja2w3NWV1dnMyZXp4MnZsYjB1ZW9qcDVjIn0.fSUhZIwlPmxnd95ioh7e-Q';
+
+
+
+//navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
+/*
+function successLocation(position){
+   console.log(position);
+   Setupmap([position.coords.longitude,position.coords.latitude]);
+   
+}
+function errorLocation(){
+  Setupmap([])
+}
+function Setupmap(center){
+   
+     //create map object with a defined center and a zoom 
     var map = new mapboxgl.Map({
-      container: 'map', // Specify the container ID
-      style: 'mapbox://styles/mapbox/streets-v11', // Specify which map style to use
-      center: [	-8.50,33.24], // Specify the starting position
-      zoom: 10, // Specify the starting zoom
-    });
-
-
-//draw the route between the user/destination
-    var draw = new MapboxDraw({
-      // Instead of showing all the draw tools, show only the line string and delete tools
-      displayControlsDefault: false,
-      controls: {
-        line_string: true,
-        trash: true
-      },
-      styles: [
-        // Set the line style for the user-input coordinates
-        {
-          "id": "gl-draw-line",
-          "type": "line",
-          "filter": ["all", ["==", "$type", "LineString"],
-            ["!=", "mode", "static"]
-          ],
-          "layout": {
-            "line-cap": "round",
-            "line-join": "round"
-          },
-          "paint": {
-            "line-color": "#438EE4",
-            "line-dasharray": [0.2, 2],
-            "line-width": 4,
-            "line-opacity": 0.7
-          }
-        },
-        // Style the vertex point halos
-        {
-          "id": "gl-draw-polygon-and-line-vertex-halo-active",
-          "type": "circle",
-          "filter": ["all", ["==", "meta", "vertex"],
-            ["==", "$type", "Point"],
-            ["!=", "mode", "static"]
-          ],
-          "paint": {
-            "circle-radius": 12,
-            "circle-color": "#FFF"
-          }
-        },
-        // Style the vertex points
-        {
-          "id": "gl-draw-polygon-and-line-vertex-active",
-          "type": "circle",
-          "filter": ["all", ["==", "meta", "vertex"],
-            ["==", "$type", "Point"],
-            ["!=", "mode", "static"]
-          ],
-          "paint": {
-            "circle-radius": 8,
-            "circle-color": "#438EE4",
-          }
-        },
-      ]
-    });
-
- // Add the draw tool to the map
-    map.addControl(draw);
-
-    function updateRoute() {
-      // Set the profile
-      var profile = "driving";
-      // Get the coordinates that were drawn on the map
-      var data = draw.getAll();
-      var lastFeature = data.features.length - 1;
-      var coords = data.features[lastFeature].geometry.coordinates;
-      // Format the coordinates
-      var newCoords = coords.join(';')
-      // Set the radius for each coordinate pair to 25 meters
-      var radius = [];
-      coords.forEach(element => {
-        radius.push(25);
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center :center,
+        zoom : 8
       });
-      getMatch(newCoords, radius, profile);
-    }
+      //add controlle buttons zoom in, zoom out
+      map.addControl(new mapboxgl.NavigationControl());
+      //add a marker in a specified location with red color
+      var marker = new mapboxgl.Marker({
+color: "#000000",
+draggable: true
+}).setLngLat([2.1734,41.3851])
+.setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
+.addTo(map);
+}
+Setupmap([2.1734,41.3851]);
+var new_york = new mapboxgl.LngLat(-74.0060, 40.7128);
+var los_angeles = new mapboxgl.LngLat(-118.2437, 34.0522);
+alert(new_york.distanceTo(los_angeles)/1000); 
+*/
+ 
 
-// Make a Map Matching request
-    function getMatch(coordinates, radius, profile) {
-      // Separate the radiuses with semicolons
-      var radiuses = radius.join(';')
-      // Create the query
-      var query = 'https://api.mapbox.com/matching/v5/mapbox/' + profile + '/' + coordinates + '?geometries=geojson&radiuses=' + radiuses + '&steps=true&access_token=' + mapboxgl.accessToken;
 
-      $.ajax({
-        method: 'GET',
-        url: query
-      }).done(function(data) {
-        // Get the coordinates from the response
-        var coords = data.matchings[0].geometry;
-        // Draw the route on the map
-        addRoute(coords);
-        getInstructions(data.matchings[0]);
-      });
-    }
 
-// Draw the Map Matching route as a new layer on the map
-    function addRoute(coords) {
-      // If a route is already loaded, remove it
-      if (map.getSource('route')) {
-        map.removeLayer('route')
-        map.removeSource('route')
-      } else {
-        map.addLayer({
-          "id": "route",
-          "type": "line",
-          "source": {
-            "type": "geojson",
-            "data": {
-              "type": "Feature",
-              "properties": {},
-              "geometry": coords
-            }
-          },
-          "layout": {
-            "line-join": "round",
-            "line-cap": "round"
-          },
-          "paint": {
-            "line-color": "#03AA46",
-            "line-width": 8,
-            "line-opacity": 0.8
-          }
-        });
-      };
-    }
 
-    function getInstructions(data) {
-// Target the sidebar to add the instructions
-      var directions = document.getElementById('directions');
+let userlocation;
+ 
+ var map;
 
-      var legs = data.legs;
-      var tripDirections = [];
-// Output the instructions for each step of each leg in the response object
-      for (var i = 0; i < legs.length; i++) {
-        var steps = legs[i].steps;
-        for (var j = 0; j < steps.length; j++) {
-          tripDirections.push('<br><li>' + steps[j].maneuver.instruction) + '</li>';
-        }
-      }
-      directions.innerHTML = '<br><h2>Trip duration: ' + Math.floor(data.duration / 60) + ' min.</h2>' + tripDirections;
-    }
 
-// If the user clicks the delete draw button, remove the layer if it exists
-    function removeRoute() {
-      if (map.getSource('route')) {
-        map.removeLayer('route');
-        map.removeSource('route');
-      } else {
-        return;
-      }
-    }
-    map.on('draw.create', updateRoute);
-    map.on('draw.update', updateRoute);
-    map.on('draw.delete', removeRoute);
+let agencies;
+async function GetAgencies(){
+  
+ 
+
+  const data=await fetch('http://localhost:8080/agencies');
+  agencies=await data.json();
+  console.log(agencies);
+
+
   
 
+//create map object with a defined center and a zoom 
+ map = new mapboxgl.Map({
+ container: 'map',
+ style: 'mapbox://styles/mapbox/streets-v11',
+ center :[-5.554722,33.895000],
+ zoom : 7
+});
+
+//add controlle buttons zoom in, zoom out
+map.addControl(new mapboxgl.NavigationControl());
 
 
-//navigationControl(zoom in/out)
-	var nav = new mapboxgl.NavigationControl()
-	map.addControl(nav)
 
-//locate the user
-	    map.addControl(
-	new mapboxgl.GeolocateControl({
-	    fitBoundsOptions: {
-	            zoom: 10,
-	        },
-	positionOptions: {
-	enableHighAccuracy: true
-	},
-	trackUserLocation: true
-	})
-	);
-//create markers for agencies
-	async function GetAgencies(){
-	    	  const data=await fetch('http://localhost:8080/agencies');
-	    	  const agencies=await data.json();
-	    	  
-	    	  for(var agence of agencies){
-	    			var marker = new mapboxgl.Marker({
-	    				color: "#FFFFFF"
-	    				}).setLngLat([agence.longitude, agence.latitude])
-	    				.addTo(map);
-	
-	    		}
-	
-	    }
-	
-	
-	GetAgencies();
+
+//Get position of the user
+navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
+
+
+ 
+}
+
+
+
+
+function successLocation(position){
+   //console.log(position);
+   var markeruser = new mapboxgl.Marker({
+    color: "#000000",
+    draggable: true
+    }).setLngLat([position.coords.longitude,position.coords.latitude])
+    .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
+    .addTo(map);
+
+    
+    userlocation = new mapboxgl.LngLat(position.coords.longitude, position.coords.latitude);
+
+
+
+
+
+    
+console.log("ready");
+
+console.log(userlocation);
+
+
+for(var agence of agencies){
+
+
+  let agence_location = new mapboxgl.LngLat(agence.longitude, agence.latitude);   
+  console.log(agence_location);
+  let distance=(Math.round(agence_location.distanceTo(userlocation)/1000*100))/100;
+  console.log(distance);
+
+
+  var marker = new mapboxgl.Marker({
+    color: "#EEBA00"
+    }).setLngLat([agence.longitude , agence.latitude])
+    .setPopup(new mapboxgl.Popup()
+.setHTML(
+
+"<ul  style='list-style-type: none; font-family: Verdana, Geneva, Tahoma, sans-serif;font-weight: bold;'   ><li style='margin-bottom : 1cm;margin-left: -10%;'> <strong style='margin-left: -10%;' >"+agence.nom+"</strong><span style='margin-right: -20%;margin-left: 20%;' >"+distance+"KM</span></li><li style=' display: flex;margin-bottom : 1cm;'  ><img style='margin-right: 10%;margin-left: -20%;' src='../customer-support.png' alt='test'><span style='margin-right : 10%;' >"+agence.bureauList[0].service+"</span><span id='1' >"+ agence.bureauList[0].bureau_disp+"%</span></li><li style='margin-bottom : 1cm;' ><img  style='margin-right: 10%;margin-left: -20%;' src='../customer-support.png' alt='test'><span style='margin-right : 10%;' >"+agence.bureauList[1].service+"</span><span id='2' >"+agence.bureauList[1].bureau_disp+"%</span></li><li style='margin-bottom : 0.5cm;' ><img  style='margin-right: 10%;margin-left: -20%;' src='../customer-support.png' alt='test'><span style='margin-right : 10%;' >"+agence.bureauList[2].service+"</span><span id='3' >"+agence.bureauList[2].bureau_disp+"%</span></li><li style='margin-left : 20%;'><input id='reserver' type='button' value='Reserver' /></li></ul>"
+)
+).addTo(map);
+    
+
+}
+
+}
+
+
+
+
+function errorLocation(){
+  Setupmap([0,0]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+GetAgencies();

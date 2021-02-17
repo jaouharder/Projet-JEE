@@ -28,12 +28,12 @@ public class ReservationSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReservationSystemApplication.class, args);
 		
-		/*AgenceDAO agence_service=new AgenceDAO();
+		AgenceDAO agence_service=new AgenceDAO();
 		List<Agence> agencies= agence_service.findAll(); 
-	   
+	 
 		for (Agence agence : agencies) {
 			System.out.println( agence.getBureauList());
-		} */ 
+		}
 	}
 
 }

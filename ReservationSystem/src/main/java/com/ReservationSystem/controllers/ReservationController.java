@@ -24,8 +24,12 @@ public class ReservationController {
 	  JavaMailSender javamailsender;
 	  
 	  
-	  
-
+    /*
+    @PostMapping("/testpost")
+    public void testPostReservation(@RequestBody Client client) {
+        System.out.println(client);
+    }
+    */
 
     @PostMapping("/addreservation")
     public boolean addReservation(@RequestBody Reservation reservation, Errors errors) {
@@ -42,6 +46,11 @@ public class ReservationController {
     public List<Reservation> getAllReservations() {
     	System.out.println("reserva");
         return reservationDAO.findAll();
+    }
+
+    @GetMapping("/reservationbyagence/{id}")
+    public List<Reservation> getReservationByAgenceId(@PathVariable(value = "id") int reservationId) {
+        return reservationDAO.findByAgenceId(reservationId);
     }
 
     @GetMapping("/reservation/{id}")

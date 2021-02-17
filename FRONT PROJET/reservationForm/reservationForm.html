@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Informations de contact</title>
+</head>
+<body>
+    <script src="sendPostRequest.js"></script>
+    <h3>Je suis</h3>
+    <form action="" id="reservationForm">
+        <ul>
+            <li>
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom">
+            </li>
+            <li>
+                <label for="prenom">Prenom:</label>
+                <input type="text" id="prenom" name="prenom">
+            </li>
+            <li>
+                <label for="cin"> CIN</label>
+                <input type="text" id="cin" name="cin">
+            </li>
+            <li>
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email">
+            </li>
+            <li>
+                <label for="localisation">Localisation</label>
+                <input type="text" id="localisation" name="localisation">
+            </li>
+            <li class="button">
+                <button onclick="postData()">Confirmer la reservation</button>
+            </li>
+            <li class="button">
+                <button type="button">Annuler</button>
+            </li>
+        </ul>
+    </form>
+    <!--<script src="reservationForm.js"></script>-->
+    <link rel="stylesheet" href="reservationForm.css">
+</body>
+</html>

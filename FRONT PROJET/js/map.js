@@ -2,7 +2,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieGVub3Bob2JlIiwiYSI6ImNrbDZwdHhpaTByZ2QycXFwd
 
 
 //navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
-/*
+
 
 function successLocation(position){
    console.log(position);
@@ -40,7 +40,7 @@ var los_angeles = new mapboxgl.LngLat(-118.2437, 34.0522);
 alert(new_york.distanceTo(los_angeles)/1000); 
 
 
-*/
+
  
 
 

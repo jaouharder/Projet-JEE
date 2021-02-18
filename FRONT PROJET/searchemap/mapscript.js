@@ -2,7 +2,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieGVub3Bob2JlIiwiYSI6ImNrbDZwdHhpaTByZ2QycXFwd
 
 
 //navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
-/*
+/* hhh
 
 function successLocation(position){
    console.log(position);
@@ -58,7 +58,7 @@ async function GetAgencies(){
 
   const data=await fetch('http://localhost:8080/agencies');
   agencies=await data.json();
-  console.log(agencies);
+  console.log(agencies);  
 
 
   

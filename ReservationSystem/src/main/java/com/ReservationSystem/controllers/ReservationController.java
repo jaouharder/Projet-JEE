@@ -1,16 +1,12 @@
 package com.ReservationSystem.controllers;
 
 import com.ReservationSystem.dao.ReservationDAO;
-import com.ReservationSystem.model.Bureau;
-import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
 import java.util.List;
 
 @RestController

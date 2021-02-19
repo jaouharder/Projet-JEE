@@ -7,20 +7,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Time;
 import java.time.Duration;
 import java.time.Instant;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Reservation {
 
     private int reservationId;
-    private @NotNull Date horaire;
+    private @NotNull Timestamp horaire;
     @NotNull
     private Bureau bureau;
     @NotNull
     private Client client;
     private int duree;
 
-    //TODO Check whether reservationId should be removed or not
-    public Reservation(/*@JsonProperty("reservationId") int reservationId,*/@JsonProperty("horaire") @NotNull Date horaire,@JsonProperty("bureau") @NotNull Bureau bureau,@JsonProperty("client") @NotNull Client client) {
+    public Reservation(/*@JsonProperty("reservationId") int reservationId,*/@JsonProperty("horaire") @NotNull Timestamp horaire,@JsonProperty("bureau") @NotNull Bureau bureau,@JsonProperty("client") @NotNull Client client) {
         //this.reservationId = reservationId;
         this.horaire = horaire;
         this.bureau = bureau;
@@ -28,7 +27,7 @@ public class Reservation {
         this.duree = 0;
     }
     //this constructor contains field "duree"
-    public Reservation(int reservationId, @NotNull Date horaire, @NotNull Bureau bureau, @NotNull Client client, int duree) {
+    public Reservation(int reservationId, @NotNull Timestamp horaire, @NotNull Bureau bureau, @NotNull Client client, int duree) {
         this.reservationId = reservationId;
         this.horaire = horaire;
         this.bureau = bureau;
@@ -36,7 +35,7 @@ public class Reservation {
         this.duree = duree;
     }
     //this constructor works out "duree" from two instants instantDebut & instantFin
-    public Reservation(int reservationId, @NotNull Date horaire, @NotNull Bureau bureau, @NotNull Client client, Instant instantDebut, Instant instantFin) {
+    public Reservation(int reservationId, @NotNull Timestamp horaire, @NotNull Bureau bureau, @NotNull Client client, Instant instantDebut, Instant instantFin) {
         this.reservationId = reservationId;
         this.horaire = horaire;
         this.bureau = bureau;
@@ -52,11 +51,11 @@ public class Reservation {
         this.reservationId = reservationId;
     }
 
-    public @NotNull Date getHoraire() {
+    public @NotNull Timestamp getHoraire() {
         return horaire;
     }
 
-    public void setHoraire(Date horaire) {
+    public void setHoraire(Timestamp horaire) {
         this.horaire = horaire;
     }
 

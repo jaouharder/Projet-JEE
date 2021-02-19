@@ -41,13 +41,13 @@
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" value="Testt" name="first_name" disabled>
+                                            <input class="input--style-5" type="text" value="Testt" id="first_name" name="first_name" disabled>
                                             <label class="label--desc">first name</label>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="last_name">
+                                            <input class="input--style-5" type="text" id="last_name" name="last_name">
                                             <label class="label--desc">last name</label>
                                         </div>
                                     </div>
@@ -58,7 +58,7 @@
                             <div class="name">Email</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="text" name="company">
+                                    <input class="input--style-5" type="email" id="email" name="email">
                                     <label class="label--desc">Email</label>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                             <div class="name">Reservation Date</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="email" name="email">
+                                    <input class="input--style-5" type="datetime" id="date" name="date">
                                     <label class="label--desc">Date</label>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="phone">
+                                            <input class="input--style-5" type="text" id="agency_name" name="agency_name">
                                             <label class="label--desc"> Agency</label>
                                         </div>
                                     </div>
@@ -96,11 +96,11 @@
                             <div class="value">
                                 <div class="input-group">
                                     <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="subject">
+                                        <select  id="service" name="service">
                                             <option disabled="disabled" selected="selected">Choose option</option>
-                                            <option>Service 1</option>
-                                            <option>Service 2</option>
-                                            <option>Service 3</option>
+                                            <option value="service1" >Service 1</option>
+                                            <option value="service2" >Service 2</option>
+                                            <option value="service2" >Service 3</option>
                                         </select>
                                         <div class="select-dropdown"></div>
                                     </div>
@@ -122,10 +122,10 @@
                         </div>-->
                            <div class="form-row p-t-20" style="display: flex;justify-content: space-between; ">
                             <div>
-                                <button class="btn btn--radius-2 btn--red" >Delete</button>
+                                <button id="delete" class="btn btn--radius-2 btn--red" >Delete</button>
                              </div>
                              <div>
-                                <button class="btn btn--radius-2 btn--blue" type="submit">Apply Changes</button>  
+                                <button id="change" class="btn btn--radius-2 btn--blue" type="submit">Apply Changes</button>  
                              </div>
                            </div>
                              
@@ -145,7 +145,6 @@
     <!-- Main JS-->
     <script src="js/editglobal.js"></script>
 
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 
 </html>
-<!-- end document-->

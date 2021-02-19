@@ -28,12 +28,19 @@ public class ReservationSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReservationSystemApplication.class, args);
 		
-		AgenceDAO agence_service=new AgenceDAO();
-		List<Agence> agencies= agence_service.findAll(); 
-	 
-		for (Agence agence : agencies) {
-			System.out.println( agence.getBureauList());
-		}
+		/*
+		 * AgenceDAO agence_service=new AgenceDAO(); List<Agence> agencies=
+		 * agence_service.findAll();
+		 * 
+		 * for (Agence agence : agencies) { System.out.println( agence.getBureauList());
+		 * }
+		 */
+		ReservationDAO reservationDao=new ReservationDAO(); List<Reservation> reservations=
+				  reservationDao.findAll();
+				  
+				  for (Reservation reservation : reservations) { System.out.println( reservation.getReservationId());
+				  }
+		
 	}
 
 }

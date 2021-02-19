@@ -23,15 +23,54 @@ public class ReservationDAO {
     Statement statement;
     ResultSet resultSet;
     String query;
-    
-    
+    BureauDAO bureauDAO = new BureauDAO();
+
+
+    public List<Reservation> findByAgenceId(int id) {
+        try {
+            statement = connection.createStatement();
+            List<Reservation> reservations= new ArrayList<>();
+            query = "select * from reservation\n" +
+                    "inner join bureau on bureau.bureau_id = reservation.bureau_id\n" +
+                    "where agence_id = " + id;
+            resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+
+                int reservationId = resultSet.getInt("reservation_id");
+                Time horaire = resultSet.getTime("horaire");
+                int duree = resultSet.getInt("duree");
+
+                Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
+
+                //Method #1
+                //Client client = Client.findById(resultSet.getString("cin_client"));
+
+                //Method #2
+                //type of cin is int in class Client, should be String for example AB12345
+                String cin = resultSet.getString("cin_client");
+                String prenom = resultSet.getString("prenom_client");
+                String nom = resultSet.getString("nom_client");
+                String email = resultSet.getString("email_client");
+
+                Client client = new Client(cin, nom, prenom, email);
+
+                Reservation reservation = new Reservation(reservationId, horaire, bureau, client, duree);
+                reservations.add(reservation);
+            }
+            return reservations;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+
+    }
     
     
     public List<Reservation> findAll() {
 
         try {
             statement = connection.createStatement();
-            List<Reservation> reservations= new ArrayList<Reservation>();
+            List<Reservation> reservations= new ArrayList<>();
             query = "select * from reservation";
             resultSet = statement.executeQuery(query);
 
@@ -41,10 +80,8 @@ public class ReservationDAO {
                 Time horaire = resultSet.getTime("horaire");
                 int duree = resultSet.getInt("duree");
 
-                //TODO Adapt to class Bureau
-                Bureau bureau = BureauDAO.findById(resultSet.getInt("bureau_id"));
+                Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
 
-                //TODO Choose the correct method between the 2 following:
 
                 //Method #1
                 //Client client = Client.findById(resultSet.getString("cin_client"));
@@ -80,8 +117,7 @@ public class ReservationDAO {
                 Time horaire = resultSet.getTime("horaire");
                 int duree = resultSet.getInt("duree");
 
-                //TODO Adapt to class Bureau
-                Bureau bureau = BureauDAO.findById(resultSet.getInt("bureau_id"));
+                Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
 
                 String prenom = resultSet.getString("prenom_client");
                 String nom = resultSet.getString("nom_client");
@@ -89,8 +125,7 @@ public class ReservationDAO {
                 
                 Client client = new Client(cin, nom, prenom, email);
 
-                Reservation reservation =new Reservation(reservationId, horaire, bureau, client, duree);
-                return reservation;
+                return new Reservation(reservationId, horaire, bureau, client, duree);
             }
             else return null;
         } catch (SQLException throwables) {
@@ -99,8 +134,6 @@ public class ReservationDAO {
         }
     }
 
-    	
-    //TODO Check if these methods need to be static
 
     public Reservation findById(int reservationId) {
         try {
@@ -113,8 +146,7 @@ public class ReservationDAO {
                 Time horaire = resultSet.getTime("horaire");
                 int duree = resultSet.getInt("duree");
 
-                //TODO Adapt to class Bureau
-                Bureau bureau = BureauDAO.findById(resultSet.getInt("bureau_id"));
+                Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
 
                 String cin = resultSet.getString("cin_client");
                 String prenom = resultSet.getString("prenom_client");
@@ -195,6 +227,8 @@ public class ReservationDAO {
 		 System.out.println("Mail sent ");
         return;
     }
+    
+    
 
 
 }

@@ -35,11 +35,13 @@ public class ReservationSystemApplication {
 		 * for (Agence agence : agencies) { System.out.println( agence.getBureauList());
 		 * }
 		 */
-		ReservationDAO reservationDao=new ReservationDAO(); List<Reservation> reservations=
-				  reservationDao.findAll();
-				  
-				  for (Reservation reservation : reservations) { System.out.println( reservation.getReservationId());
-				  }
+		/*
+		 * ReservationDAO reservationDao=new ReservationDAO(); List<Reservation>
+		 * reservations= reservationDao.findAll();
+		 * 
+		 * for (Reservation reservation : reservations) { System.out.println(
+		 * reservation.getReservationId()); }
+		 */
 		
 	}
 

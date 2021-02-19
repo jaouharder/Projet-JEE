@@ -160,7 +160,6 @@ function Valid(lat,lng,latclicked,lngclicked){
 }
 
 
-
     
 
     
@@ -234,6 +233,9 @@ function Valid(lat,lng,latclicked,lngclicked){
 
 
        submit.addEventListener('click',()=>{
+
+
+        let queryString ="?service="+service.value+"&agence_id="+Agency.id+"&nom="+last_name.value+"&prenom="+first_name.value+"&email="+email.value;
         
         let Reservation={
          
@@ -251,13 +253,18 @@ function Valid(lat,lng,latclicked,lngclicked){
           },
             
       }
+      console.log(Reservation);
+
+      
+      
       first_name.value="";
        last_name.value="";
        email.value="";
        agency_name.value="";
        service.value="";
        
-       
+       window.location.href = "../Calendar/fullcalendar.html" + queryString;
        
     });
   }
+  

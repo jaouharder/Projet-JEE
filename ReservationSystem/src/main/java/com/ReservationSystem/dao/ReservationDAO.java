@@ -230,4 +230,42 @@ public class ReservationDAO {
     }
 
 
+    public List<Reservation> findByBureauId(int bureauId) {
+        try {
+            List<Reservation> reservations= new ArrayList<>();
+            statement = connection.createStatement();
+            query = "select * from reservation " +
+                    "where bureau_id = " + bureauId + ";";
+            resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+
+                int reservationId = resultSet.getInt("reservation_id");
+                Date horaire = resultSet.getDate("horaire");
+                int duree = resultSet.getInt("duree");
+
+                Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
+
+
+                //Method #1
+                //Client client = Client.findById(resultSet.getString("cin_client"));
+
+                //Method #2
+                //type of cin is int in class Client, should be String for example AB12345
+                String cin = resultSet.getString("cin_client");
+                String prenom = resultSet.getString("prenom_client");
+                String nom = resultSet.getString("nom_client");
+                String email = resultSet.getString("email_client");
+
+                Client client = new Client(cin, nom, prenom, email);
+
+                Reservation reservation = new Reservation(reservationId, horaire, bureau, client, duree);
+                reservations.add(reservation);
+            }
+            return reservations;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
 }

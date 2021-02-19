@@ -49,6 +49,11 @@ public class ReservationController {
         return reservationDAO.findByAgenceId(reservationId);
     }
 
+    @GetMapping("/reservation/bureau/{id}")
+    public List<Reservation> getReservationByBureauId(@PathVariable(value = "id") int bureauId) {
+        return reservationDAO.findByBureauId(bureauId);
+    }
+
     @GetMapping("/reservation/{id}")
     public Reservation getReservationById(@PathVariable(value = "id") int reservationId) {
         return reservationDAO.findById(reservationId);

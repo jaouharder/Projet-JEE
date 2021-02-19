@@ -1,12 +1,17 @@
 package com.ReservationSystem.controllers;
 
 import com.ReservationSystem.dao.ReservationDAO;
+import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
+import com.ReservationSystem.model.ReservationInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -28,6 +33,14 @@ public class ReservationController {
     */
 
     @PostMapping("/addreservation")
+    public boolean addReservation(@RequestBody ReservationInfo reservationInfo) {
+
+        reservationDAO.createReservation(reservationInfo.horaire, reservationInfo.bureauId, reservationInfo.cin, reservationInfo.nom, reservationInfo.prenom, reservationInfo.email);
+        return true;
+
+    }
+    /*
+    @PostMapping("/addreservation")
     public boolean addReservation(@RequestBody Reservation reservation, Errors errors) {
         if (errors.hasErrors()) {
             return false;
@@ -36,7 +49,7 @@ public class ReservationController {
             reservationDAO.createReservation(reservation);
             return true;
         }
-    }
+    }*/
 
     @GetMapping("/reservations")
     public List<Reservation> getAllReservations() {
@@ -79,4 +92,5 @@ public class ReservationController {
 	public void SendMail(@RequestBody Reservation reservation) {
     	reservationDAO.sendEmailVerification(reservation, javamailsender);		  
 	}
+
 }

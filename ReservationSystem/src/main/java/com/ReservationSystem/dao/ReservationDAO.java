@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.NotNull;
 import java.sql.*;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 @Component
@@ -39,7 +38,7 @@ public class ReservationDAO {
             while (resultSet.next()) {
 
                 int reservationId = resultSet.getInt("reservation_id");
-                Date horaire = resultSet.getDate("horaire");
+                Timestamp horaire = resultSet.getTimestamp("horaire");
                 int duree = resultSet.getInt("duree");
 
                 Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
@@ -79,7 +78,7 @@ public class ReservationDAO {
             while (resultSet.next()) {
 
                 int reservationId = resultSet.getInt("reservation_id");
-                Date horaire = resultSet.getDate("horaire");
+                Timestamp horaire = resultSet.getTimestamp("horaire");
                 int duree = resultSet.getInt("duree");
 
                 Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
@@ -116,7 +115,7 @@ public class ReservationDAO {
             resultSet = statement.executeQuery(query);
 
             if(resultSet.next()) {
-                Date horaire = resultSet.getDate("horaire");
+                Timestamp horaire = resultSet.getTimestamp("horaire");
                 int duree = resultSet.getInt("duree");
 
                 Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
@@ -145,7 +144,7 @@ public class ReservationDAO {
             resultSet = statement.executeQuery(query);
 
              if(resultSet.next()) {
-                 Date horaire = resultSet.getDate("horaire");
+                 Timestamp horaire = resultSet.getTimestamp("horaire");
                 int duree = resultSet.getInt("duree");
 
                 Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
@@ -166,12 +165,30 @@ public class ReservationDAO {
         }
     }
 
-    public void createReservation(Reservation reservation) {
+    public void createReservation(Timestamp horaire, int bureauId, String cin, String nom, String prenom, String email) {
+        try {
+            statement = connection.createStatement();
+
+            int duree = 0;
+
+            query ="INSERT INTO reservation(cin_client, nom_client, prenom_client, email_client, horaire, duree, bureau_id) " +
+                    "VALUES('" + cin + "', '" + nom + "', '" + prenom +
+                    "', '" + email + "', '" + horaire + "', " + duree + ", " + bureauId + ");";
+
+            statement.executeUpdate(query);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    //OLD method, Ignore..
+    public void createReservationOLD(Reservation reservation) {
         try {
             statement = connection.createStatement();
 
             //int reservationId = reservation.getReservationId();
-            @NotNull Date horaire = reservation.getHoraire();
+            @NotNull Timestamp horaire = reservation.getHoraire();
             int duree = reservation.getDuree();
             Client client = reservation.getClient();
             int bureauId = reservation.getBureau().getBureauId();
@@ -189,7 +206,7 @@ public class ReservationDAO {
     }
 
     //Updates "horaire" & "bureau_id"
-    public void updateReservation(int reservationId, @NotNull Date horaire, int bureauId) {
+    public void updateReservation(int reservationId, @NotNull Timestamp horaire, int bureauId) {
         try {
             statement = connection.createStatement();
 
@@ -243,7 +260,7 @@ public class ReservationDAO {
             while (resultSet.next()) {
 
                 int reservationId = resultSet.getInt("reservation_id");
-                Date horaire = resultSet.getDate("horaire");
+                Timestamp horaire = resultSet.getTimestamp("horaire");
                 int duree = resultSet.getInt("duree");
 
                 Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));

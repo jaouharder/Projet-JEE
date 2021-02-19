@@ -40,7 +40,7 @@ public class BureauDAO {
 			      int avb=resultagc.getInt("bureau_availability");
 			      String agname=resultagc.getString("agence_name");
 			      String local=resultagc.getString("localisation");
-			      Agence agc= new Agence(agname, local);
+			      Agence agc= new Agence(agname, local, 0, 0, new ArrayList<>());
 				  Bureau br = new Bureau(service,agc,avb);
 				  bureaux.add(br);
 			     } 

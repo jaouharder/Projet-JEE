@@ -1,16 +1,12 @@
 package com.ReservationSystem.controllers;
 
 import com.ReservationSystem.dao.ReservationDAO;
-import com.ReservationSystem.model.Bureau;
-import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
 import java.util.List;
 
 @RestController
@@ -20,8 +16,8 @@ public class ReservationController {
     @Autowired
     private ReservationDAO reservationDAO;
     
-    @Autowired
-	  JavaMailSender javamailsender;
+    //@Autowired
+    JavaMailSender javamailsender;
 	  
 	  
     /*
@@ -51,6 +47,11 @@ public class ReservationController {
     @GetMapping("/reservationbyagence/{id}")
     public List<Reservation> getReservationByAgenceId(@PathVariable(value = "id") int reservationId) {
         return reservationDAO.findByAgenceId(reservationId);
+    }
+
+    @GetMapping("/reservation/bureau/{id}")
+    public List<Reservation> getReservationByBureauId(@PathVariable(value = "id") int bureauId) {
+        return reservationDAO.findByBureauId(bureauId);
     }
 
     @GetMapping("/reservation/{id}")

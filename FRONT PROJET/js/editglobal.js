@@ -1,8 +1,8 @@
 ///////////////////////////////design Part//////////////////////////////////////////
+
 (function ($) {
     'use strict';
-    /*==================================================================
-        [ Daterangepicker ]*/
+    
     try {
         $('.js-datepicker').daterangepicker({
             "singleDatePicker": true,
@@ -48,8 +48,7 @@
     
     
     } catch(er) {console.log(er);}
-    /*[ Select 2 Config ]
-        ===========================================================*/
+    
     
     try {
         var selectSimple = $('.js-select-simple');
@@ -94,6 +93,7 @@ const email=document.getElementById("email").value=Reservation.client.email;
 const date=document.getElementById("date").value=Reservation.horaire;
 const agency_name=document.getElementById("agency_name").value=Reservation.bureau.agence.nom;
 const service=document.getElementById("service");
+
 document.getElementById("email").setAttribute('disabled',true);
 document.getElementById("agency_name").setAttribute('disabled',true);
 document.getElementById("first_name").setAttribute('disabled',true);
@@ -155,3 +155,4 @@ deleletbnt.addEventListener('click',()=>{
     .then(data => { console.log(data);});
 
 });
+

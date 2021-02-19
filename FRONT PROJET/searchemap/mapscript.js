@@ -68,7 +68,7 @@ async function GetAgencies(){
  container: 'map',
  style: 'mapbox://styles/mapbox/streets-v11',
  center :[-5.554722,33.895000],
- zoom : 7
+ zoom : 8
 });
 
 //create the search bar to serach for a location by name
@@ -83,12 +83,6 @@ map.addControl(
 //add controlle buttons zoom in, zoom out
 map.addControl(new mapboxgl.NavigationControl());
 
-
-map.on('click', function(e) {
-  // The event object (e) contains information like the
-  // coordinates of the point on the map that was clicked.
-  console.log('A click event has occurred at ' + e.lngLat);
-  });
 
 
 //Get position of the user
@@ -107,7 +101,7 @@ function successLocation(position){
     color: "#000000",
     draggable: true
     }).setLngLat([position.coords.longitude,position.coords.latitude])
-    .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
+    .setPopup(new mapboxgl.Popup().setHTML("<h4>User</h4>"))
     .addTo(map);
 
     
@@ -148,24 +142,122 @@ for(var agence of agencies){
 }
 
 
-
-
 function errorLocation(){
   Setupmap([0,0]);
 }
 
 
-
-
-
-   
-  
-
-
-
-
-
-
 GetAgencies();
 
 
+let found;
+
+function Valid(lat,lng,latclicked,lngclicked){
+ if(Math.abs(lat-latclicked)<=0.025 &&Math.abs(lng-lngclicked)<=0.025 )
+     return true;
+    
+    return false; 
+}
+
+
+
+    
+
+    
+    let choice=document.getElementById('choice');
+    document.getElementById('form').style.display="none";
+   
+    choice.addEventListener('click',()=>{
+            map.on('click', function(e) {
+ // The event object (e) contains information like the
+ // coordinates of the point on the map that was clicked.
+ 
+ let point=e.lngLat;
+ console.log(point);
+ found=false;
+ for (const agence of agencies) {
+  if(Valid(agence.latitude,agence.longitude,point.lat,point.lng)&&!found){
+    
+    document.getElementById('map').style.display="none";
+    choice.style.display="none";
+    document.getElementById('form').style.display="block";
+    found=true;
+    console.log(agence);
+    SettingFormElements(agence);
+    break;
+
+ }
+   
+ }
+
+
+
+
+
+ 
+    
+ });
+
+      
+       
+   });
+  
+   
+
+
+   function SettingFormElements(Agency){
+  
+       const first_name=document.getElementById("first_name");
+       const last_name=document.getElementById("last_name");
+       const email=document.getElementById("email");
+       const agency_name=document.getElementById("agency_name");
+       const service=document.getElementById("service");
+
+       agency_name.value=Agency.nom;
+       agency_name.setAttribute('disabled',true);
+
+
+       //confirm and delete button
+       const submit=document.getElementById('change');
+       const deleletbnt=document.getElementById('delete');
+
+
+
+       //implements actions that should be executed when buttons are clicked
+       deleletbnt.addEventListener('click',()=>{
+        document.getElementById('map').style.display="block";
+        choice.style.display="block";
+        document.getElementById('form').style.display="none";
+        found=false;
+       });
+
+
+
+       submit.addEventListener('click',()=>{
+        
+        let Reservation={
+         
+          horaire : null,
+          bureau : {
+                      service : service.value,
+                      agence : {
+                          id : Agency.id
+                      }
+          },
+          client : {
+                        nom : last_name.value,
+                        prenom :first_name.value,
+                        email :email.value
+          },
+            
+      }
+      first_name.value="";
+       last_name.value="";
+       email.value="";
+       agency_name.value="";
+       service.value="";
+       
+       
+       
+    });
+  }

@@ -1,6 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoieGVub3Bob2JlIiwiYSI6ImNrbDZwdHhpaTByZ2QycXFwdXk1bTNnY2kifQ.MVEO4m4i88F8hNRaIAXXaA';
 
-
+mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
 //navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
 /* hhh
 
@@ -71,10 +71,24 @@ async function GetAgencies(){
  zoom : 7
 });
 
+//create the search bar to serach for a location by name
+map.addControl(
+  new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  mapboxgl: mapboxgl
+  })
+  );
+
+
 //add controlle buttons zoom in, zoom out
 map.addControl(new mapboxgl.NavigationControl());
 
 
+map.on('click', function(e) {
+  // The event object (e) contains information like the
+  // coordinates of the point on the map that was clicked.
+  console.log('A click event has occurred at ' + e.lngLat);
+  });
 
 
 //Get position of the user
@@ -124,7 +138,7 @@ for(var agence of agencies){
     .setPopup(new mapboxgl.Popup()
 .setHTML(
 
-"<ul  style='list-style-type: none; font-family: Verdana, Geneva, Tahoma, sans-serif;font-weight: bold;'   ><li style='margin-bottom : 1cm;margin-left: -10%;'> <strong style='margin-left: -10%;' >"+agence.nom+"</strong><span style='margin-right: -20%;margin-left: 20%;' >"+distance+"KM</span></li><li style=' display: flex;margin-bottom : 1cm;'  ><img style='margin-right: 10%;margin-left: -20%;' src='../customer-support.png' alt='test'><span style='margin-right : 10%;' >"+agence.bureauList[0].service+"</span><span id='1' >"+ agence.bureauList[0].bureau_disp+"%</span></li><li style='margin-bottom : 1cm;' ><img  style='margin-right: 10%;margin-left: -20%;' src='../customer-support.png' alt='test'><span style='margin-right : 10%;' >"+agence.bureauList[1].service+"</span><span id='2' >"+agence.bureauList[1].bureau_disp+"%</span></li><li style='margin-bottom : 0.5cm;' ><img  style='margin-right: 10%;margin-left: -20%;' src='../customer-support.png' alt='test'><span style='margin-right : 10%;' >"+agence.bureauList[2].service+"</span><span id='3' >"+agence.bureauList[2].bureau_disp+"%</span></li><li style='margin-left : 20%;'><input id='reserver' agence='181' type='button' value='Reserver' /></li></ul><script src='mapscript.js'></script>"
+"<ul  style='list-style-type: none; font-family: Verdana, Geneva, Tahoma, sans-serif;font-weight: bold;'   ><li style='margin-bottom : 1cm;margin-left: -10%;'> <strong style='margin-left: -10%;' >"+agence.nom+"</strong><span style='margin-right: -20%;margin-left: 20%;' >"+distance+"KM</span></li><li style=' display: flex;margin-bottom : 1cm;'  ><img style='margin-right: 10%;margin-left: -20%;' src='../customer-support.png' alt='test'><span style='margin-right : 10%;' >"+agence.bureauList[0].service+"</span><span id='1' >"+ agence.bureauList[0].bureau_disp+"%</span></li><li style='margin-bottom : 1cm;' ><img  style='margin-right: 10%;margin-left: -20%;' src='../customer-support.png' alt='test'><span style='margin-right : 10%;' >"+agence.bureauList[1].service+"</span><span id='2' >"+agence.bureauList[1].bureau_disp+"%</span></li><li style='margin-bottom : 0.5cm;' ><img  style='margin-right: 10%;margin-left: -20%;' src='../customer-support.png' alt='test'><span style='margin-right : 10%;' >"+agence.bureauList[2].service+"</span><span id='3' >"+agence.bureauList[2].bureau_disp+"%</span></li><li style='margin-left : 20%;'><input id='reserver' agence='181' type='button' value='Reserver' /></li></ul><script >console.log('salam')</script>"
 )
 ).addTo(map);
     
@@ -144,7 +158,8 @@ function errorLocation(){
 
 
 
-
+   
+  
 
 
 

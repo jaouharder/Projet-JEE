@@ -20,8 +20,8 @@ public class ReservationController {
     @Autowired
     private ReservationDAO reservationDAO;
     
-    @Autowired
-	  JavaMailSender javamailsender;
+    //@Autowired
+    JavaMailSender javamailsender;
 	  
 	  
     /*

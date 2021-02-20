@@ -235,8 +235,8 @@ function Valid(lat,lng,latclicked,lngclicked){
        submit.addEventListener('click',()=>{
 
 
-        let queryString ="?service="+service.value+"&agence_id="+Agency.id+"&nom="+last_name.value+"&prenom="+first_name.value+"&email="+email.value;
         
+        /*
         let Reservation={
          
           horaire : null,
@@ -253,7 +253,13 @@ function Valid(lat,lng,latclicked,lngclicked){
           },
             
       }
-      console.log(Reservation);
+      console.log(Reservation);*/
+
+      sessionStorage.setItem("service", service.value);
+      sessionStorage.setItem("agence_id", Agency.id);
+      sessionStorage.setItem("nom", last_name.value);
+      sessionStorage.setItem("prenom", first_name.value);
+      sessionStorage.setItem("email", email.value);
 
       
       
@@ -263,8 +269,8 @@ function Valid(lat,lng,latclicked,lngclicked){
        agency_name.value="";
        service.value="";
        
-       window.location.href = "../Calendar/fullcalendar.html" + queryString;
        
+
     });
   }
   

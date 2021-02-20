@@ -9,10 +9,179 @@
  * For event drag & drop, requires jQuery UI draggable.
  * For event resizing, requires jQuery UI resizable.
  */
- 
+
+
+$(document).ready(function() {
+	var date = new Date();
+	var d = date.getDate();
+	var m = date.getMonth();
+	var y = date.getFullYear();
+ 	var service = sessionStorage.getItem('service');
+	var agence_id = sessionStorage.getItem('agence_id');
+	var nom = sessionStorage.getItem('nom');
+	var prenom = sessionStorage.getItem('prenom');
+	var email = sessionStorage.getItem('email');
+	var cin = sessionStorage.getItem('cin');
+	var bureau_id=GetbureauId(agence_id,service);
+	
+	document.getElementById("but_res").addEventListener("click", async function() {
+		 let reservation={
+            horaire : start,
+            bureauId : bureau_id,
+            cin: cin,
+            nom : nom,
+            prenom : prenom,
+            email : email
+		}; 
+
+		const objectContact=await fetch('http://localhost:8080/addreservation',{method:'Post',headers:new Headers({'Content-Type':'application/json'}),body :JSON.stringify(reservation)})
+        const response=await objectContact.json();
+        console.log(response);
+	  });
+
+
+    async function GetbureauId(agence_id,service){
+		const data=await fetch('http://localhost:8080/bureauId/'+AgenceId+'/'+service);
+		const id=await data.json();
+		return Number(id);
+	}
+	
+	async function GetReservations(BureauID){
+		const data=await fetch('http://localhost:8080/reservation/bureau/'+BureauID);
+		const reservations=await data.json();
+		var hours,minutes;
+		for(var res of reservations){
+			  var resyear=Number(res.horaire.charAt(0)+res.horaire.charAt(1)+res.horaire.charAt(2)+res.horaire.charAt(3));
+			  var resmth=Number(res.horaire.charAt(5)+res.horaire.charAt(6));
+			  var resday=Number(res.horaire.charAt(8)+res.horaire.charAt(9));
+			  hours=Number(res.horaire.charAt(11)+res.horaire.charAt(12));
+			  minutes=Number(res.horaire.charAt(14)+res.horaire.charAt(15));
+			  calendar.fullCalendar('renderEvent',
+					{
+						title: "RESERVED",
+						start: new Date(resyear,resmth-1,resday,hours,minutes,0) ,
+						end: (minutes==30) ? new Date(resyear,resmth-1,resday,hours+1,0,0): new Date(resyear,resmth-1,resday,hours,30,0),
+						allDay: false,
+						className: 'important'
+					},
+					true // make the event "stick"
+				);
+			 } 
+}
+GetReservations(bureau_id);
+
+	/*  className colors
+
+	className: default(transparent), important(red), chill(pink), success(green), info(blue)
+
+	*/
+
+
+	/* initialize the external events
+	-----------------------------------------------------------------*/
+
+	$('#external-events div.external-event').each(function() {
+
+		// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+		// it doesn't need to have a start or end
+		var eventObject = {
+			title: $.trim($(this).text()) // use the element's text as the event title
+		};
+		// store the Event Object in the DOM element so we can get to it later
+		$(this).data('eventObject', eventObject);
+
+		// make the event draggable using jQuery UI
+		$(this).draggable({
+			zIndex: 999,
+			revert: true,      // will cause the event to go back to its
+			revertDuration: 0  //  original position after the drag
+		});
+
+	});
+
+
+	/* initialize the calendar 
+	-----------------------------------------------------------------*/
+	var fois=0;
+	var calendar =  $('#calendar').fullCalendar({
+		header: {
+			left: 'title',
+			center: 'agendaDay,agendaWeek,month',
+			right: 'prev,next today'
+		},
+		editable: false,
+		firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+		selectable: true,
+		defaultView: 'agendaWeek',
+
+		axisFormat: 'h:mm',
+		columnFormat: {
+			month: 'ddd',       // Mon
+			week: 'ddd d',     // Mon 7
+			day: 'dddd M/d',  // Monday 9/7
+			agendaDay: 'dddd d'
+		},
+		titleFormat: {
+			month: 'MMMM yyyy', // September 2009
+			week: "MMMM yyyy", // September 2009
+			day: 'MMMM yyyy'  // Tuesday, Sep 8, 2009
+		},
+		allDaySlot: false,
+		selectHelper: true,
+		
+		select: function(start, end, allDay) {
+			//startdate=start;
+			if(fois!=0){
+			 
+			   window.alert('YOU ALREADY CHOSED YOUR TIME');
+
+			}
+		//	events.
+		    else{
+				var conf=window.confirm('YOU HAVE CHOSED THIS TIME : '+start+'\nAre you sure ?');
+		      	if(conf){
+				fois++;
+				calendar.fullCalendar('renderEvent',
+					{
+						title: "YOUR RESERVATION",
+						start: start,
+						end: end,
+						allDay: false,
+						className: 'important'
+					},
+					true // make the event "stick"
+				);
+			}}
+			calendar.fullCalendar('unselect');
+		},
+		droppable: true,                // this allows things to be dropped onto the calendar !!!
+		drop: function(date, allDay) { // this function is called when something is dropped
+
+			// retrieve the dropped element's stored Event Object
+			var originalEventObject = $(this).data('eventObject');
+
+			// we need to copy it, so that multiple events don't have a reference to the same object
+			var copiedEventObject = $.extend({}, originalEventObject); 
+
+			// assign it the date that was reported
+			copiedEventObject.start = date;
+			copiedEventObject.allDay = allDay;
+
+			// render the event on the calendar  
+			// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+			$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+			// is the "remove after drop" checkbox checked?
+			if ($('#drop-remove').is(':checked')) {
+				// if so, remove the element from the "Draggable Events" list
+				$(this).remove();
+			}
+
+		},
+	});
+});
+
 (function($, undefined) {
-
-
 ;;
 
 var defaults = {
@@ -25,16 +194,16 @@ var defaults = {
 		center: '',
 		right: 'today prev,next'
 	},
-	weekends: true,
+	weekends: false,
 	weekNumbers: false,
 	weekNumberCalculation: 'iso',
 	weekNumberTitle: 'W',
 	
 	// editing
-	//editable: false,
+	// editable: false,
 	//disableDragging: false,
 	//disableResizing: false,
-	
+	 
 	allDayDefault: true,
 	ignoreTimezone: true,
 	
@@ -1369,6 +1538,7 @@ function fixDate(d, check) { // force d to be on check's YMD, for daylight savin
 	}
 }
 
+
 function addMinutes(d, n) {
 	d.setMinutes(d.getMinutes() + n);
 	return d;
@@ -1393,13 +1563,10 @@ function cloneDate(d, dontKeepTime) {
 
 
 function zeroDate() { // returns a Date with time 00:00:00 and dateOfMonth=1
-	var i=0, d,h=8,minu=0;
-	while(h<17){
+	var i=0, d;
+	do {
 		d = new Date(1970, i++, 1);
-		d.setHours(h,minu,0,0);
-		h++;
-		minu+=30;
-	} //while (d.getHours()); // != 0
+	} while (d.getHours()); // != 0
 	return d;
 }
 
@@ -2766,8 +2933,8 @@ setDefaults({
 	dragOpacity: {
 		agenda: .5
 	},
-	minTime: 0,
-	maxTime: 9,
+	minTime: 8,
+	maxTime: 17,
 	slotEventOverlap: true
 });
 
@@ -6109,6 +6276,7 @@ function HorizontalPositionCache(getElement) {
 
 ;;
 
+<<<<<<< HEAD
 })(jQuery);
  
 console.log(sessionStorage.getItem("service"));
@@ -6117,3 +6285,6 @@ console.log(sessionStorage.getItem("prenom"));
 console.log(sessionStorage.getItem("email"));
 console.log(sessionStorage.getItem("agence_id"));
 console.log(sessionStorage.getItem("cin"));
+=======
+})(jQuery);
+>>>>>>> e594f83f9e1c5673470cc9eef817f83ff38c33b1

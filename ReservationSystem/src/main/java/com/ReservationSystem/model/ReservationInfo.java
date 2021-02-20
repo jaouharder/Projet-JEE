@@ -20,4 +20,54 @@ public class ReservationInfo {
         this.prenom = prenom;
         this.email = email;
     }
+
+	public Timestamp getHoraire() {
+		return horaire;
+	}
+
+	public void setHoraire(Timestamp horaire) {
+		this.horaire = horaire;
+	}
+
+	public int getBureauId() {
+		return bureauId;
+	}
+
+	public void setBureauId(int bureauId) {
+		this.bureauId = bureauId;
+	}
+
+	public String getCin() {
+		return cin;
+	}
+
+	public void setCin(String cin) {
+		this.cin = cin;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+    
+    
 }

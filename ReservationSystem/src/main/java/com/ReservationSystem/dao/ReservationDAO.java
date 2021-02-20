@@ -5,7 +5,7 @@ import com.ReservationSystem.configdb.JDBCONFIG;
 import com.ReservationSystem.model.Bureau;
 import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
-
+import com.ReservationSystem.model.ReservationInfo;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -236,12 +236,12 @@ public class ReservationDAO {
     }
 
     //we can do better email/subject/body must be read from a file or something like that
-    public void sendEmailVerification(Reservation reservation, JavaMailSender javamailsender) {
+    public void sendEmailVerification(ReservationInfo reservation, JavaMailSender javamailsender) {
 		SimpleMailMessage mail=new SimpleMailMessage();
-		mail.setTo(reservation.getClient().getEmail());
+		mail.setTo(reservation.getEmail());
 		mail.setFrom("mohammedouttaleb245@gmail.com");
 		mail.setSubject("Bank Reservation");
-		mail.setText("Bonjour Mr "+reservation.getClient().getPrenom()+".\nNous vous confirmons que vous avez bien reserever votre place à l'agence... \nVoici votre clé de reservation : "+reservation.getReservationId()+".\nCordialement.");
+		mail.setText("Bonjour Mr "+reservation.getPrenom()+".\nNous vous confirmons que vous avez bien reserever votre place à l'agence... \nVoici votre clé de reservation : "+reservation.getCin()+".\nCordialement.");
 		javamailsender.send(mail);
 		 System.out.println("Mail sent ");
     }

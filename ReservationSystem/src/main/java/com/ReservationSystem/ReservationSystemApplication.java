@@ -37,11 +37,13 @@ public class ReservationSystemApplication {
 		 */
 		
 		
-		  ReservationDAO reservationDao=new ReservationDAO(); List<Reservation>
-		  reservations= reservationDao.findAll();
-		  
-		  for (Reservation reservation : reservations) { System.out.println(
-		  reservation); }
+		/*
+		 * ReservationDAO reservationDao=new ReservationDAO(); List<Reservation>
+		 * reservations= reservationDao.findAll();
+		 * 
+		 * for (Reservation reservation : reservations) { System.out.println(
+		 * reservation); }
+		 */
 		 
 		 
 		

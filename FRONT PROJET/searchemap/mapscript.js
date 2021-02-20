@@ -246,9 +246,9 @@ function Valid(lat,lng,latclicked,lngclicked){
        
 
        //this part commented can store bureaux ids into select options
-    /*   service.children[1].value=Agency.bureauList[0].bureauId;
+       service.children[1].value=Agency.bureauList[0].bureauId;
        service.children[2].value=Agency.bureauList[1].bureauId;
-       service.children[3].value=Agency.bureauList[2].bureauId;*/
+       service.children[3].value=Agency.bureauList[2].bureauId;
 
        //confirm and delete button
        var submit=document.getElementById('change');
@@ -306,8 +306,13 @@ function Valid(lat,lng,latclicked,lngclicked){
       sessionStorage.setItem("email", email.value);
 
       
+
       
        first_name.value="";
+
+       cin.value="";
+       first_name.value="";
+
        last_name.value="";
        email.value="";
        agency_name.value="";

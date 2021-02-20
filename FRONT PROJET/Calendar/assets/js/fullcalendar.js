@@ -13,6 +13,7 @@
 
 $(document).ready(function() {
 	var date = new Date();
+	var startd;
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
@@ -22,29 +23,39 @@ $(document).ready(function() {
 	var prenom = sessionStorage.getItem('prenom');
 	var email = sessionStorage.getItem('email');
 	var cin = sessionStorage.getItem('cin');
-	var bureau_id=GetbureauId(agence_id,service);
-	
+	var brId=sessionStorage.getItem('bureau_id');
+	//var bureau_id=GetbureauId(agence_id,service);
+	console.log(service);
+	console.log(agence_id);
+	console.log(nom);
+	console.log(prenom);
+	console.log(email);
+	console.log(cin);
+	//console.log(bureau_id);
 	document.getElementById("but_res").addEventListener("click", async function() {
 		 let reservation={
-            horaire : start,
-            bureauId : bureau_id,
+            horaire : startd,
+            bureauId : service,
             cin: cin,
             nom : nom,
             prenom : prenom,
             email : email
-		}; 
+		};
 
 		const objectContact=await fetch('http://localhost:8080/addreservation',{method:'Post',headers:new Headers({'Content-Type':'application/json'}),body :JSON.stringify(reservation)})
         const response=await objectContact.json();
         console.log(response);
+		const objectCct=await fetch('http://localhost:8080/sendmail',{method:'Post',headers:new Headers({'Content-Type':'application/json'}),body :JSON.stringify(reservation)})
+        await objectCct.json();
+
 	  });
 
 
-    async function GetbureauId(agence_id,service){
-		const data=await fetch('http://localhost:8080/bureauId/'+AgenceId+'/'+service);
+    /* async function GetbureauId(agence_id,service){
+		const data=await fetch('http://localhost:8080/bureauId/'+agence_id+'/'+service);
 		const id=await data.json();
 		return Number(id);
-	}
+	} */
 	
 	async function GetReservations(BureauID){
 		const data=await fetch('http://localhost:8080/reservation/bureau/'+BureauID);
@@ -68,7 +79,7 @@ $(document).ready(function() {
 				);
 			 } 
 }
-GetReservations(bureau_id);
+GetReservations(service);
 
 	/*  className colors
 
@@ -131,6 +142,7 @@ GetReservations(bureau_id);
 		
 		select: function(start, end, allDay) {
 			//startdate=start;
+			startd=start;
 			if(fois!=0){
 			 
 			   window.alert('YOU ALREADY CHOSED YOUR TIME');
@@ -6276,6 +6288,7 @@ function HorizontalPositionCache(getElement) {
 
 ;;
 
+<<<<<<< HEAD
 })(jQuery);
  
 console.log(sessionStorage.getItem("service"));
@@ -6284,3 +6297,6 @@ console.log(sessionStorage.getItem("prenom"));
 console.log(sessionStorage.getItem("email"));
 console.log(sessionStorage.getItem("agence_id"));
 console.log(sessionStorage.getItem("cin"));
+=======
+})(jQuery);
+>>>>>>> 60f1f123c253c95374cfe952363b0938c33523b5

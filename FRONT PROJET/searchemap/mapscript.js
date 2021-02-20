@@ -229,7 +229,6 @@ function Valid(lat,lng,latclicked,lngclicked){
       
        
    });
-  
    
 
 
@@ -244,6 +243,7 @@ function Valid(lat,lng,latclicked,lngclicked){
 
        agency_name.value=Agency.nom;
        agency_name.setAttribute('disabled',true);
+       
 
        //this part commented can store bureaux ids into select options
     /*   service.children[1].value=Agency.bureauList[0].bureauId;
@@ -251,11 +251,17 @@ function Valid(lat,lng,latclicked,lngclicked){
        service.children[3].value=Agency.bureauList[2].bureauId;*/
 
        //confirm and delete button
-       const submit=document.getElementById('change');
+       var submit=document.getElementById('change');
        const deleletbnt=document.getElementById('delete');
+       
+         
+       
 
+       
 
-
+      
+      
+   
        //implements actions that should be executed when buttons are clicked
        deleletbnt.addEventListener('click',()=>{
         document.getElementById('map').style.display="block";
@@ -265,9 +271,13 @@ function Valid(lat,lng,latclicked,lngclicked){
        });
 
 
+       
+
+
+       
 
        submit.addEventListener('click',()=>{
-
+       
 
         
         /*
@@ -297,7 +307,7 @@ function Valid(lat,lng,latclicked,lngclicked){
 
       
       
-      first_name.value="";
+       first_name.value="";
        last_name.value="";
        email.value="";
        agency_name.value="";
@@ -306,4 +316,6 @@ function Valid(lat,lng,latclicked,lngclicked){
        
 
     });
+
+    
   }

@@ -246,9 +246,9 @@ function Valid(lat,lng,latclicked,lngclicked){
        agency_name.setAttribute('disabled',true);
 
        //this part commented can store bureaux ids into select options
-    /*   service.children[1].value=Agency.bureauList[0].bureauId;
+       service.children[1].value=Agency.bureauList[0].bureauId;
        service.children[2].value=Agency.bureauList[1].bureauId;
-       service.children[3].value=Agency.bureauList[2].bureauId;*/
+       service.children[3].value=Agency.bureauList[2].bureauId;
 
        //confirm and delete button
        const submit=document.getElementById('change');

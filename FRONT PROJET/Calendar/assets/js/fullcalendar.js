@@ -46,7 +46,7 @@ $(document).ready(function() {
         const response=await objectContact.json();
         console.log(response);
 		const objectCct=await fetch('http://localhost:8080/sendmail',{method:'Post',headers:new Headers({'Content-Type':'application/json'}),body :JSON.stringify(reservation)})
-        await objectCct.json();
+        //await objectCct.json();
 
 	  });
 
@@ -6288,15 +6288,12 @@ function HorizontalPositionCache(getElement) {
 
 ;;
 
-<<<<<<< HEAD
 })(jQuery);
- 
+ /*
 console.log(sessionStorage.getItem("service"));
 console.log(sessionStorage.getItem("nom"));
 console.log(sessionStorage.getItem("prenom"));
 console.log(sessionStorage.getItem("email"));
 console.log(sessionStorage.getItem("agence_id"));
 console.log(sessionStorage.getItem("cin"));
-=======
-})(jQuery);
->>>>>>> 60f1f123c253c95374cfe952363b0938c33523b5
+*/

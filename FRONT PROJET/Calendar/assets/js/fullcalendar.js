@@ -6116,3 +6116,4 @@ console.log(sessionStorage.getItem("nom"));
 console.log(sessionStorage.getItem("prenom"));
 console.log(sessionStorage.getItem("email"));
 console.log(sessionStorage.getItem("agence_id"));
+console.log(sessionStorage.getItem("cin"));

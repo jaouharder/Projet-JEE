@@ -1,6 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmVuZXR0YWxlYiIsImEiOiJja2w3NWV1dnMyZXp4MnZsYjB1ZW9qcDVjIn0.fSUhZIwlPmxnd95ioh7e-Q';
 
-
+ 
 
 //navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
 /*
@@ -9,11 +9,10 @@ function successLocation(position){
    Setupmap([position.coords.longitude,position.coords.latitude]);
    
 }
-=======
+
 mapboxgl.accessToken = 'pk.eyJ1IjoieGVub3Bob2JlIiwiYSI6ImNrbDZwdHhpaTByZ2QycXFwdXk1bTNnY2kifQ.MVEO4m4i88F8hNRaIAXXaA';
-=======
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmVuZXR0YWxlYiIsImEiOiJja2w3NWV1dnMyZXp4MnZsYjB1ZW9qcDVjIn0.fSUhZIwlPmxnd95ioh7e-Q';
->>>>>>> branch 'main' of https://github.com/jaouharder/Projet-JEE.git
+
 
 mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
 //navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
@@ -24,8 +23,6 @@ function successLocation(position){
    Setupmap([position.coords.longitude,position.coords.latitude]);
    
 }
-
->>>>>>> branch 'main' of https://github.com/jaouharder/Projet-JEE.git
 function errorLocation(){
   Setupmap([])
 }
@@ -181,7 +178,7 @@ function errorLocation(){
 GetAgencies();
 
 
-
+ 
 let found;
 
 function Valid(lat,lng,latclicked,lngclicked){

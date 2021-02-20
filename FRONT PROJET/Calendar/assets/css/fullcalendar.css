@@ -3,7 +3,22 @@
  * Docs & License: http://arshaw.com/fullcalendar/
  * (c) 2013 Adam Shaw
  */
+#but_res{
+	margin-left: 52%;
+    margin-top: 2%;
+    margin-bottom: 3%;
+ 	background-color: rgb(79, 157, 126);/*#4CAF50; /* Green */
+	border: none;
+	color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+	 
 
+}
 
 .fc {
 	direction: ltr;

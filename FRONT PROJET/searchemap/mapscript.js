@@ -299,7 +299,7 @@ function Valid(lat,lng,latclicked,lngclicked){
       sessionStorage.setItem("email", email.value);
 
       
-      
+      cin.value="";
       first_name.value="";
        last_name.value="";
        email.value="";

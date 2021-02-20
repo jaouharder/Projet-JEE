@@ -6276,7 +6276,6 @@ function HorizontalPositionCache(getElement) {
 
 ;;
 
-<<<<<<< HEAD
 })(jQuery);
  
 console.log(sessionStorage.getItem("service"));
@@ -6285,6 +6284,3 @@ console.log(sessionStorage.getItem("prenom"));
 console.log(sessionStorage.getItem("email"));
 console.log(sessionStorage.getItem("agence_id"));
 console.log(sessionStorage.getItem("cin"));
-=======
-})(jQuery);
->>>>>>> e594f83f9e1c5673470cc9eef817f83ff38c33b1

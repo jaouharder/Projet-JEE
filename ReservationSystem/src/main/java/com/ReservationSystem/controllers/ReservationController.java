@@ -21,8 +21,8 @@ public class ReservationController {
     @Autowired
     private ReservationDAO reservationDAO;
     
-    //@Autowired
-    JavaMailSender javamailsender;
+    @Autowired
+    private JavaMailSender javamailsender;
 	  
 	  
     /*
@@ -89,7 +89,7 @@ public class ReservationController {
     
     
     @PostMapping("/sendmail")
-	public void SendMail(@RequestBody Reservation reservation) {
+	public void SendMail(@RequestBody ReservationInfo reservation) {
     	reservationDAO.sendEmailVerification(reservation, javamailsender);		  
 	}
 

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<body>
+<meta charset='utf-8' />
+<div id="form" class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+    <link href="../../css/editmain.css" rel="stylesheet" media="all">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
+            <div class="card-heading">
+                <h2 class="title">Reservation Form</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="../../Calendar/fullcalendar.html">
+                    <div class="form-row">
+                        <div class="name">CIN</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input id="cin" class="input--style-5" type="text" id="cin" name="cin" disabled>
+                                <label class="label--desc">CIN</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row m-b-55">
+                        <div class="name">Client Name</div>
+                        <div class="value">
+                            <div class="row row-space">
+                                <div class="col-2">
+                                    <div class="input-group-desc">
+                                        <input class="input--style-5" type="text"  id="first_name" name="first_name" disabled>
+                                        <label class="label--desc">first name</label>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group-desc">
+                                        <input class="input--style-5" type="text" id="last_name" name="last_name" disabled>
+                                        <label class="label--desc">last name</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Email</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-5" type="email" id="email" name="email" disabled>
+                                <label class="label--desc">Email</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row m-b-55">
+                        <div class="name">Agency</div>
+                        <div class="value">
+                            <div class="row row-refine">
+                                <div class="col-9">
+                                    <div class="input-group-desc">
+                                        <input class="input--style-5" type="text" id="agency_name" name="agency_name" disabled>
+                                        <label class="label--desc"> Agency</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Service</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <div class="rs-select2 js-select-simple select--no-search">
+                                    <select  id="service" name="service">
+<!--                                        <option disabled="disabled" selected="selected">Choose option</option>-->
+                                        <option value=0 >Service chéque et virement</option>
+                                        <option value=1 >Service creation de compte</option>
+                                        <option value=2 >Service nesiitou</option>
+                                    </select>
+                                    <div class="select-dropdown"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row p-t-20" style="display: flex;justify-content: space-between; ">
+                        <div>
+                            <button id="delete" class="btn btn--radius-2 btn--red" >Cancel</button>
+                        </div>
+                        <div>
+                            <button id="change" class="btn btn--radius-2 btn--blue" type="submit">Next</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="edit_reservation.js"></script>
+</div>
+</body>
+</html>

@@ -3,7 +3,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYmVuZXR0YWxlYiIsImEiOiJja2w3NWV1dnMyZXp4MnZsY
  
 
 //navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
-/*
+/* 
 function successLocation(position){
    console.log(position);
    Setupmap([position.coords.longitude,position.coords.latitude]);

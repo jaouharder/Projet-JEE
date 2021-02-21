@@ -34,6 +34,7 @@ $(document).ready(function() {
 	//console.log(bureau_id);
 	document.getElementById("but_res").addEventListener("click", async function() {
 		 let reservation={
+			 reservationId:0,
             horaire : startd,
             bureauId : service,
             cin: cin,
@@ -45,6 +46,7 @@ $(document).ready(function() {
 		const objectContact=await fetch('http://localhost:8080/addreservation',{method:'Post',headers:new Headers({'Content-Type':'application/json'}),body :JSON.stringify(reservation)})
         const response=await objectContact.json();
         console.log(response);
+		reservation.reservationId=response;
 		const objectCct=await fetch('http://localhost:8080/sendmail',{method:'Post',headers:new Headers({'Content-Type':'application/json'}),body :JSON.stringify(reservation)})
         //await objectCct.json();
 

@@ -27,19 +27,13 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 <script src="script.js"></script>
-<script>
-   function checkInput(){
-	   if(document.getElementById('reservationid').value==="") alert("id reservation est obligatoire");
-	   return false;
-   }
-</script>
 </head>
 <body>
 	
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" onsubmit="checkInput()">
+				<form method="post" action="../EditReservation/NEW/editreservation.html" class="login100-form validate-form" onsubmit="return checkLogin()">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
@@ -49,12 +43,12 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter CIN">
-						<input class="input100" id="usercin" type="text" name="cin" placeholder="CIN">
+						<input class="input100" id="usercin" type="text" name="cin" required placeholder="CIN">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter reservation id">
-						<input class="input100" type="number" id="reservationid" name="reservation id" placeholder="Reservation ID">
+						<input class="input100" type="number" id="reservationid" name="reservation id" required placeholder="Reservation ID">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
                          
 					</div>

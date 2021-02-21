@@ -5,6 +5,7 @@ async function GetOldReservation(){
 
     let old_reservation = JSON.parse(sessionStorage.getItem("oldreservation"));
     // let old_reservation = sessionStorage.getItem("oldreservation");
+    // console.log(old_reservation);
 
     document.getElementById("cin").value = old_reservation.client.cin;
     document.getElementById("first_name").value = old_reservation.client.prenom;
@@ -23,9 +24,9 @@ function submit_mod() {
 
     // const data = await fetch('http://localhost:8080/reservation/6');
     // let new_reservation = await data.json();
-    console.log("2->>===========//-//===========<<")
-    console.log(new_reservation);
-    console.log("3->>===========//-//===========<<")
+    // console.log("2->>===========//-//===========<<")
+    // console.log(new_reservation);
+    // console.log("3->>===========//-//===========<<")
 
 
     // let old_reservation = sessionStorage.getItem("oldreservation");
@@ -34,9 +35,10 @@ function submit_mod() {
     let agence = new_reservation.bureau.agence;
     new_reservation.bureau = new_reservation.bureau.agence.bureauList[service.value];
     new_reservation.bureau.agence = agence;
-    sessionStorage.setItem("new_reservation", new_reservation);
+    sessionStorage.setItem("new_reservation", JSON.stringify(new_reservation));
+    sessionStorage.setItem("operation", "modifier");
 
-    console.log(new_reservation);
+    // console.log(new_reservation);
 
 }
 

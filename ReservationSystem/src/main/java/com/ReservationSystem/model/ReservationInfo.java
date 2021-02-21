@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Timestamp;
 
 public class ReservationInfo {
+	public int reservationId;
     public Timestamp horaire;
     public int bureauId;
     public String cin;
@@ -68,6 +69,5 @@ public class ReservationInfo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-    
-    
+
 }

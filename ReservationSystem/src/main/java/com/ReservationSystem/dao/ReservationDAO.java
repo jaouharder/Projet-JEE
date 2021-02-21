@@ -165,7 +165,7 @@ public class ReservationDAO {
         }
     }
 
-    public void createReservation(Timestamp horaire, int bureauId, String cin, String nom, String prenom, String email) {
+    public int createReservation(Timestamp horaire, int bureauId, String cin, String nom, String prenom, String email) {
         try {
             statement = connection.createStatement();
 
@@ -175,10 +175,14 @@ public class ReservationDAO {
                     "VALUES('" + cin + "', '" + nom + "', '" + prenom +
                     "', '" + email + "', '" + horaire + "', " + duree + ", " + bureauId + ");";
 
-            statement.executeUpdate(query);
-
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            generatedKeys.next();
+            //System.out.println(generatedKeys.getString(1));
+            return Integer.parseInt(generatedKeys.getString(1));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return 0;
         }
     }
 

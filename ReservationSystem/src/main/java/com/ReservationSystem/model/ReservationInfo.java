@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Timestamp;
 
 public class ReservationInfo {
-	public int reservationId;
-    public Timestamp horaire;
-    public int bureauId;
-    public String cin;
-    public String nom;
-    public String prenom;
-    public String email;
+	private int reservationId;
+	private Timestamp horaire;
+	private int bureauId;
+	private String cin;
+	private String nom;
+	private String prenom;
+	private String email;
 
     public ReservationInfo(@JsonProperty("horaire")Timestamp horaire, @JsonProperty("bureauId")int bureauId, @JsonProperty("cin")String cin, @JsonProperty("nom")String nom, @JsonProperty("prenom")String prenom, @JsonProperty("email")String email) {
         this.horaire = horaire;
@@ -70,4 +70,11 @@ public class ReservationInfo {
 		this.email = email;
 	}
 
+	public int getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(int reservationId) {
+		this.reservationId = reservationId;
+	}
 }

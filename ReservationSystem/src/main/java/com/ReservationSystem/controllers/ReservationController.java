@@ -35,7 +35,7 @@ public class ReservationController {
     @PostMapping("/addreservation")
     public int addReservation(@RequestBody ReservationInfo reservationInfo) {
 
-        return reservationDAO.createReservation(reservationInfo.horaire, reservationInfo.bureauId, reservationInfo.cin, reservationInfo.nom, reservationInfo.prenom, reservationInfo.email);
+        return reservationDAO.createReservation(reservationInfo.getHoraire(), reservationInfo.getBureauId(), reservationInfo.getCin(), reservationInfo.getNom(), reservationInfo.getPrenom(), reservationInfo.getEmail());
     }
     /*
     @PostMapping("/addreservation")

@@ -245,7 +245,7 @@ public class ReservationDAO {
 		mail.setTo(reservation.getEmail());
 		mail.setFrom("mohammedouttaleb245@gmail.com");
 		mail.setSubject("Bank Reservation");
-		mail.setText("Bonjour Mr "+reservation.getPrenom()+".\nNous vous confirmons que vous avez bien reserever votre place à l'agence... \nVoici votre clé de reservation : "+reservation.getCin()+".\nCordialement.");
+		mail.setText("Bonjour Mr "+reservation.getPrenom()+".\nNous vous confirmons que vous avez bien reserever votre place à l'agence... \nVoici votre clé de reservation : "+reservation.getReservationId() +".\nCordialement.");
 		javamailsender.send(mail);
 		 System.out.println("Mail sent ");
     }

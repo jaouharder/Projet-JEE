@@ -1,6 +1,5 @@
 let exist = false;
 
-
 async function login(){
      
      const data=await fetch('http://localhost:8080/reservations');

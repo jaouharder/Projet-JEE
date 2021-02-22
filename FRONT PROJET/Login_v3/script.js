@@ -11,11 +11,13 @@ async function login(){
 
      boutton.addEventListener('click', ()=>{
       let idReservation = document.getElementById('reservationid').value;
+      let cinClient = document.getElementById('usercin').value;
+      console.log(cinClient);
       console.log(idReservation);
       // let exist = false;
       for(let reservation of reservations){
         
-        if(idReservation==reservation.reservationId){
+        if(idReservation==reservation.reservationId && cinClient==reservation.client.cin){
           exist=true; 
           sessionStorage.setItem("oldreservation", JSON.stringify(reservation));
           break;

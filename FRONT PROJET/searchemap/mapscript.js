@@ -115,7 +115,7 @@ function successLocation(position){
    //console.log(position);
    var markeruser = new mapboxgl.Marker({
     color: "#000000",
-    draggable: true
+    draggable: false
     }).setLngLat([position.coords.longitude,position.coords.latitude])
     .setPopup(new mapboxgl.Popup().setHTML("<h4>User</h4>"))
     .addTo(map);
@@ -194,12 +194,29 @@ function Valid(lat,lng,latclicked,lngclicked){
     
     let choice=document.getElementById('choice');
     document.getElementById('form').style.display="none";
-   
+    let modeView=0;
+
+
+
     choice.addEventListener('click',()=>{
+      modeView++;
+      console.log(modeView);
+      if(modeView%2==0){
+        choice.style.backgroundColor='#e71733';
+        choice.textContent='View Mode';
+        map.on('click',function(e){
+          if(modeView%2==0)
+          console.log('nothing happened..');
+        });
+      }
+      else{
+            choice.textContent='Selection Mode';
+            choice.style.backgroundColor='green';
             map.on('click', function(e) {
  // The event object (e) contains information like the
  // coordinates of the point on the map that was clicked.
- 
+ if(modeView%2!=0){
+ console.log("a thing happend");
  let point=e.lngLat;
  console.log(point);
  found=false;
@@ -218,14 +235,14 @@ function Valid(lat,lng,latclicked,lngclicked){
    
  }
 
-
+}
 
 
 
  
     
  });
-
+}
       
        
    });
@@ -280,24 +297,6 @@ function Valid(lat,lng,latclicked,lngclicked){
        
 
         
-        /*
-        let Reservation={
-         
-          horaire : null,
-          bureau : {
-                      service : service.value,
-                      agence : {
-                          id : Agency.id
-                      }
-          },
-          client : {
-                        nom : last_name.value,
-                        prenom :first_name.value,
-                        email :email.value
-          },
-            
-      }
-      console.log(Reservation);*/
       sessionStorage.setItem("cin", cin.value);
       sessionStorage.setItem("service", service.value);
       sessionStorage.setItem("agence_id", Agency.id);
@@ -306,7 +305,8 @@ function Valid(lat,lng,latclicked,lngclicked){
       sessionStorage.setItem("email", email.value);
       sessionStorage.setItem("operation","create");
 
-      
+       //alert(cin.value);
+       //alert(service.value);
 
       
        first_name.value="";

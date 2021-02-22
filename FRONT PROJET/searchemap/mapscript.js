@@ -304,6 +304,7 @@ function Valid(lat,lng,latclicked,lngclicked){
       sessionStorage.setItem("nom", last_name.value);
       sessionStorage.setItem("prenom", first_name.value);
       sessionStorage.setItem("email", email.value);
+      sessionStorage.setItem("operation","create");
 
       
 

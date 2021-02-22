@@ -1,3 +1,4 @@
+let exist = false;
 
 
 async function login(){
@@ -12,19 +13,24 @@ async function login(){
      boutton.addEventListener('click', ()=>{
       let idReservation = document.getElementById('reservationid').value;
       console.log(idReservation);
-      let exist = false;
+      // let exist = false;
       for(let reservation of reservations){
         
         if(idReservation==reservation.reservationId){
           exist=true; 
-          sessionStorage.setItem("oldreservation", reservation);         
+          sessionStorage.setItem("oldreservation", JSON.stringify(reservation));
           break;
         }
       }
       console.log(exist);
       //alert("w9ef 3and hadk");
       if(exist==false) alert("info non valide");
+         sessionStorage.setItem("exist", exist);
      });
+
 }
 login();
 
+function checkLogin() {
+    return exist;
+}

@@ -47,5 +47,12 @@ public class AgenceController {
 	       
 		  return  agence_service.findById(agence_id);   	
 	}
+
+	@PostMapping("/employe/{id}")
+	public boolean employeExists(@PathVariable(name = "id") int bureauId, @RequestBody String password) {
+	  	System.out.println(bureauId);
+	  	System.out.println(password);
+	  	return agence_service.employeExists(bureauId, password);
+	}
 	
 }

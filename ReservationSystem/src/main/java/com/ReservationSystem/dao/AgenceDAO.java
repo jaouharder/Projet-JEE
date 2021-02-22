@@ -96,7 +96,18 @@ public class AgenceDAO {
 	}
 	
 	
-	
+	public boolean employeExists(int bureauId, String password) {
+		try {
+			stat = cnx.createStatement();
+			query = "select * from employe " +
+					"where bureau_id = " + bureauId + " AND password = \"" + password + "\";";
+			result = stat.executeQuery(query);
+			return result.next();
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		return false;
+	}
 	
 	
 	

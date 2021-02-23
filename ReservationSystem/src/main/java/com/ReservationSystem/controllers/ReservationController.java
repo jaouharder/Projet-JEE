@@ -1,5 +1,6 @@
 package com.ReservationSystem.controllers;
 
+import com.ReservationSystem.dao.BureauDAO;
 import com.ReservationSystem.dao.ReservationDAO;
 import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
@@ -20,6 +21,8 @@ public class ReservationController {
 
     @Autowired
     private ReservationDAO reservationDAO;
+    @Autowired
+    private BureauDAO bureau_service;
     
     @Autowired
     private JavaMailSender javamailsender;
@@ -34,7 +37,11 @@ public class ReservationController {
 
     @PostMapping("/addreservation")
     public int addReservation(@RequestBody ReservationInfo reservationInfo) {
-
+         
+    	  //update availability of the bureau 
+          String service=bureau_service.GetServiceById(reservationInfo.getBureauId());
+    	  bureau_service.UpdateBureauAvailability(reservationInfo.getBureauId(), service);
+    	  
         return reservationDAO.createReservation(reservationInfo.getHoraire(), reservationInfo.getBureauId(), reservationInfo.getCin(), reservationInfo.getNom(), reservationInfo.getPrenom(), reservationInfo.getEmail());
     }
     /*

@@ -124,6 +124,52 @@ public  List<Bureau> getBureauxByAgId(int AgId) {
 	}
 
 
+    /**Method built By Xeno ***/
+  
+    public String GetServiceById(int bureauId) {
+    	 try {
+    		 String output="";
+			Statement stat=conx.createStatement();
+			String query="select service from bureau where bureau_Id="+bureauId+";";
+			ResultSet service=stat.executeQuery(query);
+			while(service.next()) {
+				output=service.getString("service");
+			}
+			return output;
+		} catch (SQLException e) { e.printStackTrace(); return null;}
+    	
+    	
+    }
+    
+    
+    
+    
+    /**this method updates bureau's availability when a new reservation is created */
+	public void UpdateBureauAvailability(int bureauId,String service) {
+		 
+		double taux=0;
+		
+		switch (service) {
+		case "service chéque et virement":
+			taux=0.0625;
+			break;
+		case "service creation de compte":
+			taux=0.0625;
+			break;
+		case "service directeur":
+			taux=0.0625;
+			break;			
+		default:
+			break;
+		}
+		taux=100*taux;
+		System.out.println(taux);
+		try {
+			Statement stat=conx.createStatement();
+			String query="UPDATE BUREAU SET bureau_availability=bureau_availability-"+taux+" where bureau_Id="+bureauId+";";
+			System.out.println( stat.executeUpdate(query));
+		} catch (SQLException e) {e.printStackTrace();}
+	}
 
 
 

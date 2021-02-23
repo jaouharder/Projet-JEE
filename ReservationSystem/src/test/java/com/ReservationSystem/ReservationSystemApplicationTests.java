@@ -1,4 +1,4 @@
-/*
+
 package com.ReservationSystem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,22 +9,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ReservationSystem.dao.AgenceDAO;
+import com.ReservationSystem.dao.BureauDAO;
 import com.ReservationSystem.model.Agence;
 
-//@SpringBootTest
+@SpringBootTest
 class ReservationSystemApplicationTests {
 
 	@Test
 	void contextLoads() {
 		
-		// test of agency methods
-		AgenceDAO agenceService=new AgenceDAO();
-		agenceService.createAgency(new Agence("CIH Paris","Champs Elysee",30));
-		System.out.println("agence with id 1 : "+agenceService.findById(1));
-		List<Agence> list=agenceService.findbyAvailability();
-		System.out.println("agence with order: "+list);
-		
+		BureauDAO agenceservice=new BureauDAO();
+		agenceservice.UpdateBureauAvailability(12, "service chéque et virement");
 	}
 
 }
-*/
+

@@ -11,13 +11,11 @@ async function login(){
 
      boutton.addEventListener('click', ()=>{
       let idReservation = document.getElementById('reservationid').value;
-      let cinClient = document.getElementById('usercin').value;
-      console.log(cinClient);
       console.log(idReservation);
       // let exist = false;
       for(let reservation of reservations){
         
-        if(idReservation==reservation.reservationId && cinClient==reservation.client.cin){
+        if(idReservation==reservation.reservationId){
           exist=true; 
           sessionStorage.setItem("oldreservation", JSON.stringify(reservation));
           break;
@@ -25,7 +23,13 @@ async function login(){
       }
       console.log(exist);
       //alert("w9ef 3and hadk");
-      if(exist==false) alert("info non valide");
+      if(exist==false){ 
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Invalid ID/CIN!',
+          footer: '<a href>Forget ID? Check your mail</a>'
+        })}
          sessionStorage.setItem("exist", exist);
      });
 

@@ -23,6 +23,8 @@ public class Bureau {
 	}
 
 	
+    
+
 
 	public Bureau(int id,@NotNull String service, @NotNull int bureau_disp, boolean isavailable) {
 		super();

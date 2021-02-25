@@ -42,7 +42,7 @@ public class AgenceController {
 	  }
 	
 	
-	  @GetMapping("/agency/id")
+	  @GetMapping("/agency/{id}")
       public Agence GetAgencybyID(@PathVariable(name = "id") int agence_id) {
 	       
 		  return  agence_service.findById(agence_id);   	

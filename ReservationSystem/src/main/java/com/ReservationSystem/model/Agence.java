@@ -28,12 +28,12 @@ public class Agence {
 	
 
 	public Agence(@NotNull @Size(min = 1, max = 6) String nom,
-			@NotNull @Size(min = 1, max = 6) String localisation, float latitude, float longitude,
+			@NotNull @Size(min = 1, max = 6) String localisation, float d, float e,
 			List<Bureau> bureauList) {
 		this.nom = nom;
 		this.localisation = localisation;
-		this.latitude = latitude;
-		this.longitude = longitude;
+		this.latitude = d;
+		this.longitude = e;
 		this.bureauList = bureauList;
 	}
 
@@ -67,8 +67,8 @@ public class Agence {
 
 
 
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
+	public void setLatitude(float d) {
+		this.latitude = d;
 	}
 
 
@@ -85,8 +85,8 @@ public class Agence {
 
 
 
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
+	public void setLongitude(float d) {
+		this.longitude = d;
 	}
 
 

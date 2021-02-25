@@ -1,6 +1,8 @@
 package com.ReservationSystem.model;
 
+
 public class Client {
+
 	//variables
 		private String cin;
 		private String nom;
@@ -8,7 +10,10 @@ public class Client {
 		private String localisation;
 		private String email;
 
-	
+	//default constructor
+		public Client() {
+			
+		}
 
 	//constructor with all variables
 		public Client(String cin, String nom, String prenom, String localisation, String email) {

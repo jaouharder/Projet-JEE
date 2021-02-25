@@ -28,12 +28,12 @@ public class Agence {
 	
 
 	public Agence(@NotNull @Size(min = 1, max = 6) String nom,
-			@NotNull @Size(min = 1, max = 6) String localisation, float d, float e,
+			@NotNull @Size(min = 1, max = 6) String localisation, float latitude, float longitude,
 			List<Bureau> bureauList) {
 		this.nom = nom;
 		this.localisation = localisation;
-		this.latitude = d;
-		this.longitude = e;
+		this.latitude = latitude;
+		this.longitude = longitude;
 		this.bureauList = bureauList;
 	}
 

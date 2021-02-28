@@ -67,8 +67,8 @@ public class Agence {
 
 
 
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
+	public void setLatitude(float d) {
+		this.latitude = d;
 	}
 
 
@@ -85,8 +85,8 @@ public class Agence {
 
 
 
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
+	public void setLongitude(float d) {
+		this.longitude = d;
 	}
 
 

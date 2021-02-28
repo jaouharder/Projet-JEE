@@ -63,7 +63,7 @@ public class AgenceDAO {
 			     String nom=result.getString("agence_name");
 				 String localisation=result.getString("localisation");
 				 float latitude=result.getFloat("latitude");
-				 float longitude=result.getFloat("latitude");
+				 float longitude=result.getFloat("longitude");//it was an error here
 				 BureauDAO bureau_service=new BureauDAO();
 				 List<Bureau> bureauList= bureau_service.getBureauxByAgId(id);
 				 Agence agence=new Agence(nom,localisation,latitude,longitude,bureauList);

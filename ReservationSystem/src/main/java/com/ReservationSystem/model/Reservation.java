@@ -2,6 +2,7 @@ package com.ReservationSystem.model;
 
 import javax.validation.constraints.NotNull;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.sql.Time;

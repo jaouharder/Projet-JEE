@@ -2,7 +2,7 @@
 <html>
 <body>
 <meta charset='utf-8' />
-<div id="form" class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+<div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
     <link href="../../css/editmain.css" rel="stylesheet" media="all">
     <div class="wrapper wrapper--w790">
         <div class="card card-5">
@@ -10,12 +10,12 @@
                 <h2 class="title">Reservation Form</h2>
             </div>
             <div class="card-body">
-                <form method="POST" action="../../Calendar/fullcalendar.html">
+                <form method="POST" action="../../Calendar/fullcalendar.html" id="form">
                     <div class="form-row">
                         <div class="name">CIN</div>
                         <div class="value">
                             <div class="input-group">
-                                <input id="cin" class="input--style-5" type="text" id="cin" name="cin" disabled>
+                                <input class="input--style-5" type="text" id="cin" name="cin" disabled>
                                 <label class="label--desc">CIN</label>
                             </div>
                         </div>
@@ -86,7 +86,6 @@
                             <button id="change" class="btn btn--radius-2 btn--blue" type="submit">Next</button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>

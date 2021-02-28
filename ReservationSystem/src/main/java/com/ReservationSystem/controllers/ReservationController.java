@@ -71,10 +71,10 @@ public class ReservationController {
     }
 
     @PutMapping("updatereservation/{id}")
-    public void updateReservation(@RequestBody Reservation reservation,
+    public void updateReservation(@RequestBody ReservationInfo reservationinfo,
                                   @PathVariable(value = "id") int reservationId) {
     	System.out.println("update controller");
-        reservationDAO.updateReservation(reservationId, reservation.getHoraire(), reservation.getBureau().getBureauId());
+        reservationDAO.updateReservation(reservationId, reservationinfo.getHoraire(), reservationinfo.getBureauId());
     }
 
     @DeleteMapping("deletereservation/{id}")

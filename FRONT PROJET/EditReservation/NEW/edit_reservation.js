@@ -32,13 +32,19 @@ function submit_mod() {
     // let old_reservation = sessionStorage.getItem("oldreservation");
 
     let service = document.getElementById("service");
-    let agence = new_reservation.bureau.agence;
-    new_reservation.bureau = new_reservation.bureau.agence.bureauList[service.value];
-    new_reservation.bureau.agence = agence;
-    sessionStorage.setItem("new_reservation", JSON.stringify(new_reservation));
+
+    let reservation_info = {
+        reservationId: new_reservation.reservationId,
+        horaire: new_reservation.horaire,
+        bureauId: new_reservation.bureau.agence.bureauList[service.value].bureauId
+    };
+
+    sessionStorage.setItem("new_reservation", JSON.stringify(reservation_info));
     sessionStorage.setItem("operation", "modifier");
+    document.getElementById("form").submit();
 
     // console.log(new_reservation);
 
+    console.log(JSON.parse(sessionStorage.getItem("new_reservation")));
 }
 

@@ -25,7 +25,12 @@ async function login(){
       }
       console.log(exist);
       //alert("w9ef 3and hadk");
-      if(exist==false) alert("info non valide");
+      if(exist==false) {Swal.fire({
+  icon: 'error',
+  title: 'Error',
+  text: 'Invalid ID/CIN!',
+  footer: '<a href>Forget ID? Check your mail</a>'
+})}
          sessionStorage.setItem("exist", exist);
      });
 
@@ -35,3 +40,4 @@ login();
 function checkLogin() {
     return exist;
 }
+

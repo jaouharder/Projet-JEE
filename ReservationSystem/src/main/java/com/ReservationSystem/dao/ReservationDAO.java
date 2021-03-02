@@ -291,4 +291,19 @@ public class ReservationDAO {
             return null;
         }
     }
+
+    public void setDuree(int reservationId, int duree) {
+        try {
+            statement = connection.createStatement();
+
+            query = "UPDATE RESERVATION " +
+                    "SET DUREE = '" + duree + "' "+
+                    "WHERE RESERVATION_ID = " + reservationId + ";";
+
+            statement.executeUpdate(query);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

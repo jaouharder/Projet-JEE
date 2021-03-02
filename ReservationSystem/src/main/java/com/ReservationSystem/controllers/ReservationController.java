@@ -91,7 +91,10 @@ public class ReservationController {
     	return true;
     }
     
-    
+    @PutMapping("setDuree/{id}")
+    public void setDuree(@RequestBody int duree, @PathVariable(value = "id") int reservationId) {
+        reservationDAO.setDuree(reservationId, duree);
+    }
     
     @PostMapping("/sendmail")
 	public void SendMail(@RequestBody ReservationInfo reservation) {

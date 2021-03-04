@@ -43,11 +43,6 @@ public class ReservationDAO {
 
                 Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
 
-                //Method #1
-                //Client client = Client.findById(resultSet.getString("cin_client"));
-
-                //Method #2
-                //type of cin is int in class Client, should be String for example AB12345
                 String cin = resultSet.getString("cin_client");
                 String prenom = resultSet.getString("prenom_client");
                 String nom = resultSet.getString("nom_client");
@@ -83,12 +78,6 @@ public class ReservationDAO {
 
                 Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
 
-
-                //Method #1
-                //Client client = Client.findById(resultSet.getString("cin_client"));
-
-                //Method #2
-                //type of cin is int in class Client, should be String for example AB12345
                 String cin = resultSet.getString("cin_client");
                 String prenom = resultSet.getString("prenom_client");
                 String nom = resultSet.getString("nom_client");
@@ -102,34 +91,6 @@ public class ReservationDAO {
             return reservations;
         }
         catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
-        }
-    }
-//find reservation by her id and client cin
-    public Reservation findByIdAndCin(int reservationId, String cin) {
-    	try {
-            statement = connection.createStatement();
-            query = "select * from reservation " +
-                    "where reservation_id = " + reservationId + "and cin_client="+ cin +";";
-            resultSet = statement.executeQuery(query);
-
-            if(resultSet.next()) {
-                Timestamp horaire = resultSet.getTimestamp("horaire");
-                int duree = resultSet.getInt("duree");
-
-                Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
-
-                String prenom = resultSet.getString("prenom_client");
-                String nom = resultSet.getString("nom_client");
-                String email = resultSet.getString("email_client");
-                
-                Client client = new Client(cin, nom, prenom, email);
-
-                return new Reservation(reservationId, horaire, bureau, client, duree);
-            }
-            else return null;
-        } catch (SQLException throwables) {
             throwables.printStackTrace();
             return null;
         }
@@ -186,28 +147,6 @@ public class ReservationDAO {
         }
     }
 
-    //OLD method, Ignore..
-    public void createReservationOLD(Reservation reservation) {
-        try {
-            statement = connection.createStatement();
-
-            //int reservationId = reservation.getReservationId();
-            @NotNull Timestamp horaire = reservation.getHoraire();
-            int duree = reservation.getDuree();
-            Client client = reservation.getClient();
-            int bureauId = reservation.getBureau().getBureauId();
-
-            //TODO change cin to work as a String if changed in class Client
-            query ="INSERT INTO reservation(cin_client, nom_client, prenom_client, email_client, horaire, duree, bureau_id) " +
-                    "VALUES('" + client.getCin() + "', '" + client.getNom() + "', '" + client.getPrenom() +
-                    "', '" + client.getEmail() + "', '" + horaire + "', " + duree + ", " + bureauId + ");";
-
-            statement.executeUpdate(query);
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
 
     //Updates "horaire" & "bureau_id"
     public void updateReservation(int reservationId, @NotNull Timestamp horaire, int bureauId) {
@@ -243,7 +182,7 @@ public class ReservationDAO {
     public void sendEmailVerification(ReservationInfo reservation, JavaMailSender javamailsender) {
 		SimpleMailMessage mail=new SimpleMailMessage();
 		mail.setTo(reservation.getEmail());
-		mail.setFrom("mohammedouttaleb245@gmail.com");
+		mail.setFrom("oninebankensias@gmail.com");
 		mail.setSubject("Bank Reservation");
 		mail.setText("Bonjour Mr "+reservation.getPrenom()+".\nNous vous confirmons que vous avez bien reserever votre place à l'agence... \nVoici votre clé de reservation : "+reservation.getReservationId() +".\nCordialement.");
 		javamailsender.send(mail);
@@ -270,11 +209,6 @@ public class ReservationDAO {
                 Bureau bureau = bureauDAO.findById(resultSet.getInt("bureau_id"));
 
 
-                //Method #1
-                //Client client = Client.findById(resultSet.getString("cin_client"));
-
-                //Method #2
-                //type of cin is int in class Client, should be String for example AB12345
                 String cin = resultSet.getString("cin_client");
                 String prenom = resultSet.getString("prenom_client");
                 String nom = resultSet.getString("nom_client");
@@ -291,4 +225,39 @@ public class ReservationDAO {
             return null;
         }
     }
+    
+    public void setDuree(int reservationId, int duree) {
+        try {
+            statement = connection.createStatement();
+
+            query = "UPDATE RESERVATION " +
+                    "SET DUREE = '" + duree + "' "+
+                    "WHERE RESERVATION_ID = " + reservationId + ";";
+
+            statement.executeUpdate(query);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    
+    
+    
+    
+    public int GetBuIdByReservationId(int reservationid) {
+    	
+   	 try {
+   		 int BurId=0;
+			statement = connection.createStatement();
+			query = "select bureau_id from reservation " +
+	                 "where reservation_Id = " + reservationid + ";";
+	         resultSet = statement.executeQuery(query);
+	         while (resultSet.next()) { BurId = resultSet.getInt("bureau_id");}
+	         return BurId;
+	    
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+   }
 }

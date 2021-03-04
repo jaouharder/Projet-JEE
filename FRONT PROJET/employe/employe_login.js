@@ -2,7 +2,7 @@
 document.getElementById("login").addEventListener('click', () => checkemployee());
 
 async function checkemployee() {
-    let employee_url = "http://localhost:8080/employe/" + document.getElementById("brId").value;
+      let employee_url = "http://localhost:8080/employe/" + document.getElementById("brId").value;
     console.log(document.getElementById("password").value);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "text/plain");
@@ -17,8 +17,15 @@ async function checkemployee() {
     // console.log(exists);
     if (exists===true) {
         sessionStorage.setItem("id_bureau", document.getElementById("brId").value);
-        document.getElementById("login_form").submit();
+        window.location.replace('coming-sssoon-page-master/demo-video-background.html');
     }
+    else{ 
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Invalid Password/ID',
+        
+      })}
+     
+
 }
-
-

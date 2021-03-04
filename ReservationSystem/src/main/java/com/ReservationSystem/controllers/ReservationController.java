@@ -2,17 +2,11 @@ package com.ReservationSystem.controllers;
 
 import com.ReservationSystem.dao.BureauDAO;
 import com.ReservationSystem.dao.ReservationDAO;
-import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
 import com.ReservationSystem.model.ReservationInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -27,34 +21,14 @@ public class ReservationController {
     @Autowired
     private JavaMailSender javamailsender;
 	  
-	  
-    /*
-    @PostMapping("/testpost")
-    public void testPostReservation(@RequestBody Client client) {
-        System.out.println(client);
-    }
-    */
-
+	
     @PostMapping("/addreservation")
     public int addReservation(@RequestBody ReservationInfo reservationInfo) {
-         
-    	  //update availability of the bureau 
-          String service=bureau_service.GetServiceById(reservationInfo.getBureauId());
-    	  bureau_service.UpdateBureauAvailability(reservationInfo.getBureauId(), service);
-    	  
-        return reservationDAO.createReservation(reservationInfo.getHoraire(), reservationInfo.getBureauId(), reservationInfo.getCin(), reservationInfo.getNom(), reservationInfo.getPrenom(), reservationInfo.getEmail());
+    	 int reservationId= reservationDAO.createReservation(reservationInfo.getHoraire(), reservationInfo.getBureauId(), reservationInfo.getCin(), reservationInfo.getNom(), reservationInfo.getPrenom(), reservationInfo.getEmail());
+    	 bureau_service.calculTaux(reservationInfo.getBureauId()); 
+         return reservationId;
     }
-    /*
-    @PostMapping("/addreservation")
-    public boolean addReservation(@RequestBody Reservation reservation, Errors errors) {
-        if (errors.hasErrors()) {
-            return false;
-        }
-        else {
-            reservationDAO.createReservation(reservation);
-            return true;
-        }
-    }*/
+    
 
     @GetMapping("/reservations")
     public List<Reservation> getAllReservations() {
@@ -78,16 +52,19 @@ public class ReservationController {
     }
 
     @PutMapping("updatereservation/{id}")
-    public void updateReservation(@RequestBody Reservation reservation,
+    public void updateReservation(@RequestBody ReservationInfo reservation,
                                   @PathVariable(value = "id") int reservationId) {
+    	bureau_service.calculTaux(reservationDAO.GetBuIdByReservationId(reservationId)); 
     	System.out.println("update controller");
-        reservationDAO.updateReservation(reservationId, reservation.getHoraire(), reservation.getBureau().getBureauId());
+        reservationDAO.updateReservation(reservationId, reservation.getHoraire(), reservation.getBureauId());
+        
+    	bureau_service.calculTaux(reservation.getBureauId());
     }
 
     @DeleteMapping("deletereservation/{id}")
     public boolean removeReservation(@PathVariable(value = "id") int reservationId) {
     	System.out.println("delete controller");
-    	//reservationDAO.deleteReservation(reservationId);
+    	reservationDAO.deleteReservation(reservationId);
     	return true;
     }
     
@@ -97,5 +74,10 @@ public class ReservationController {
 	public void SendMail(@RequestBody ReservationInfo reservation) {
     	reservationDAO.sendEmailVerification(reservation, javamailsender);		  
 	}
+    
+    @PutMapping("setDuree/{id}")
+    public void setDuree(@RequestBody int duree, @PathVariable(value = "id") int reservationId) {
+        reservationDAO.setDuree(reservationId, duree);
+    }
 
 }

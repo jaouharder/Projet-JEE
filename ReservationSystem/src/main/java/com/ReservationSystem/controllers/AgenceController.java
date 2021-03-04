@@ -25,7 +25,6 @@ public class AgenceController {
 	  private AgenceDAO agence_service;
 	  
 	  
-	  /*validation dont work i dont know why !!!!!!!!*/
 	  @PostMapping("/addagency")
 	  public boolean addAgency(@RequestBody @Valid Agence agence,Errors err ) {
 		  if(err.hasErrors()) {

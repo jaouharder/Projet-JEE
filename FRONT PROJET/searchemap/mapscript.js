@@ -266,7 +266,9 @@ function Valid(lat,lng,latclicked,lngclicked){
        service.children[1].value=Agency.bureauList[0].bureauId;
        service.children[2].value=Agency.bureauList[1].bureauId;
        service.children[3].value=Agency.bureauList[2].bureauId;
-
+       service.children[1].innerHTML=Agency.bureauList[0].service;
+       service.children[2].innerHTML=Agency.bureauList[1].service;
+       service.children[3].innerHTML=Agency.bureauList[2].service;
        //confirm and delete button
        var submit=document.getElementById('change');
        const deleletbnt=document.getElementById('delete');

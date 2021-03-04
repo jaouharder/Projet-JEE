@@ -1,8 +1,3 @@
-/*****
-By DERROUICH JAOUHAR 
-ENSIAS-GL1
-*****/
-
 package com.ReservationSystem.model;
 
 import javax.validation.constraints.NotNull;

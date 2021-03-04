@@ -1,9 +1,6 @@
 package com.ReservationSystem.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.sql.Timestamp;
-
 import org.junit.jupiter.api.Test;
 
 import com.ReservationSystem.model.Bureau;

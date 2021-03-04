@@ -20,14 +20,26 @@ $(document).ready(function() {
  	var service = sessionStorage.getItem('service');
 	var operation = sessionStorage.getItem('operation'); 
 	var old_reservation = JSON.parse(sessionStorage.getItem("oldreservation"));
-	var startd=old_reservation.horaire;
+	var startd;
+	var bll=0;
+	if(operation == 'modifier'){
+		startd=old_reservation.horaire;
+	}
 	var agence_id = sessionStorage.getItem('agence_id');
 	var nom = sessionStorage.getItem('nom');
 	var prenom = sessionStorage.getItem('prenom');
 	var email = sessionStorage.getItem('email');
 	var cin = sessionStorage.getItem('cin');
-	console.log(service);console.log(service);console.log(old_reservation);console.log(startd);
 	document.getElementById("but_res").addEventListener("click", async function() {
+		if( typeof(startd)=='undefined'){
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'YOU FORGOT TO CHOSE YOUR TIME!',
+			  });
+			  bll=1;
+		
+		}else{
 		if(operation == 'create'){
 		let reservation={
 			 reservationId:0,
@@ -52,7 +64,8 @@ $(document).ready(function() {
 			headers:new Headers({'Content-Type':'application/json'}),
 			body :JSON.stringify(reservation)
 		}) }
-		else if (operation == 'modifier'){
+	}
+		 if (operation == 'modifier'){
 			
 			let reservation={
 				reservationId: old_reservation.reservationId,
@@ -69,6 +82,7 @@ $(document).ready(function() {
 			body :JSON.stringify(reservation)
 		})
 		}
+		if(bll==0){
 		Swal.fire({
 			icon: 'success',
 			title: 'Your reservation has been saved',
@@ -81,6 +95,7 @@ $(document).ready(function() {
 			Swal.close();
 		 },1500); 
         //await objectCct.json();
+	}
 
 	  });
 

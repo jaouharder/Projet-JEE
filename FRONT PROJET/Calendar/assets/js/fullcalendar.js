@@ -41,6 +41,7 @@ $(document).ready(function() {
 		
 		}else{
 		if(operation == 'create'){
+			document.getElementById("but_res").disabled=true;
 		let reservation={
 			 reservationId:0,
             horaire : startd,

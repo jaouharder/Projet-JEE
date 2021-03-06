@@ -1,0 +1,245 @@
+@startuml
+title __Reseservation system's Class Diagram__\n
+
+    namespace com.ReservationSystem {
+      class com.ReservationSystem.ReservationSystemApplication {
+          {static} + main()
+      }
+    }
+
+    namespace com.ReservationSystem {
+      namespace model {
+        class com.ReservationSystem.model.Agence {
+            - bureauList : List<Bureau>
+            - id : int
+            - latitude : float
+            - localisation : String
+            - longitude : float
+            - nom : String
+            + Agence()
+            + getBureauList()
+            + getId()
+            + getLatitude()
+            + getLocalisation()
+            + getLongitude()
+            + getNom()
+            + setBureauList()
+            + setId()
+            + setLatitude()
+            + setLocalisation()
+            + setLongitude()
+            + setNom()
+            + toString()
+        }
+      }
+    }
+
+
+    namespace com.ReservationSystem {
+      namespace model {
+        class com.ReservationSystem.model.Bureau {
+            - bureauId : int
+            - bureau_disp : int
+            - isavailable : boolean
+            - service : String
+            + Bureau()
+            + Bureau()
+            + Bureau()
+            + Bureau()
+            + Bureau()
+            + getAgence()
+            + getBureauId()
+            + getBureau_disp()
+            + getService()
+            + isIsavailable()
+            + setAgence()
+            + setBureauId()
+            + setBureau_disp()
+            + setIsavailable()
+            + setService()
+            + toString()
+        }
+      }
+    }
+
+
+    namespace com.ReservationSystem {
+      namespace model {
+        class com.ReservationSystem.model.Client {
+            - cin : String
+            - email : String
+            - localisation : String
+            - nom : String
+            - prenom : String
+            + Client()
+            + Client()
+            + Client()
+            + getCin()
+            + getEmail()
+            + getLocalisation()
+            + getNom()
+            + getPrenom()
+            + setCin()
+            + setEmail()
+            + setLocalisation()
+            + setNom()
+            + setPrenom()
+        }
+      }
+    }
+
+
+    namespace com.ReservationSystem {
+      namespace model {
+        class com.ReservationSystem.model.Reservation {
+            - duree : int
+            - horaire : Timestamp
+            - reservationId : int
+            + Reservation()
+            + Reservation()
+            + Reservation()
+            + getBureau()
+            + getClient()
+            + getDuree()
+            + getHoraire()
+            + getReservationId()
+            + setBureau()
+            + setClient()
+            + setDuree()
+            + setHoraire()
+            + setReservationId()
+            + toString()
+        }
+      }
+    }
+
+
+    namespace com.ReservationSystem {
+      namespace model {
+        class com.ReservationSystem.model.ReservationInfo {
+            - bureauId : int
+            - cin : String
+            - email : String
+            - horaire : Timestamp
+            - nom : String
+            - prenom : String
+            - reservationId : int
+            + ReservationInfo()
+            + getBureauId()
+            + getCin()
+            + getEmail()
+            + getHoraire()
+            + getNom()
+            + getPrenom()
+            + getReservationId()
+            + setBureauId()
+            + setCin()
+            + setEmail()
+            + setHoraire()
+            + setNom()
+            + setPrenom()
+            + setReservationId()
+        }
+      }
+    }
+
+    namespace com.ReservationSystem {
+      namespace dao {
+        class com.ReservationSystem.dao.AgenceDAO {
+            - cnx : Connection
+            - query : String
+            - result : ResultSet
+            - stat : Statement
+            + createAgency()
+            + employeExists()
+            + findAll()
+            + findById()
+        }
+      }
+    }
+
+
+    namespace com.ReservationSystem {
+      namespace dao {
+        class com.ReservationSystem.dao.BureauDAO {
+            {static} ~ conx : Connection
+            + GetServiceById()
+            + calculReservationsLeft()
+            + calculTaux()
+            + findById()
+            + getBureauxByAgId()
+            + nearestClosedTime()
+            + nearestOpenTime()
+        }
+      }
+    }
+
+    namespace com.ReservationSystem {
+      namespace dao {
+        class com.ReservationSystem.dao.ReservationDAO {
+            ~ connection : Connection
+            ~ query : String
+            ~ resultSet : ResultSet
+            ~ statement : Statement
+            + GetBuIdByReservationId()
+            + createReservation()
+            + deleteReservation()
+            + findAll()
+            + findByAgenceId()
+            + findByBureauId()
+            + findById()
+            + sendEmailVerification()
+            + setDuree()
+            + updateReservation()
+        }
+      }
+    }
+    namespace com.ReservationSystem {
+      namespace controllers {
+        class com.ReservationSystem.controllers.AgenceController {
+            + GetAgencybyID()
+            + GetAllAgencies()
+            + addAgency()
+            + employeExists()
+        }
+      }
+    }
+
+    namespace com.ReservationSystem {
+      namespace controllers {
+        class com.ReservationSystem.controllers.ReservationController {
+            - javamailsender : JavaMailSender
+            + SendMail()
+            + addReservation()
+            + getAllReservations()
+            + getReservationByAgenceId()
+            + getReservationByBureauId()
+            + getReservationById()
+            + removeReservation()
+            + setDuree()
+            + updateReservation()
+        }
+      }
+    }
+    
+    namespace com.ReservationSystem {
+      namespace configdb {
+        class com.ReservationSystem.configdb.JDBCONFIG {
+            ~ prop : Properties
+            {static} - cnx : Connection
+            {static} - config : JDBCONFIG
+            {static} + GetConx()
+            - CreateConx()
+            - JDBCONFIG()
+        }
+      }
+    }
+    
+    com.ReservationSystem.controllers.AgenceController o-- com.ReservationSystem.dao.AgenceDAO : agence_service
+    com.ReservationSystem.controllers.ReservationController o-- com.ReservationSystem.dao.BureauDAO : bureau_service
+    com.ReservationSystem.controllers.ReservationController o-- com.ReservationSystem.dao.ReservationDAO : reservationDAO
+    com.ReservationSystem.dao.ReservationDAO o-left- com.ReservationSystem.dao.BureauDAO : bureauDAO
+    com.ReservationSystem.model.Bureau o-left- com.ReservationSystem.model.Agence : agence
+    com.ReservationSystem.model.Reservation o-- com.ReservationSystem.model.Bureau : bureau
+    com.ReservationSystem.model.Reservation o-- com.ReservationSystem.model.Client : client
+@enduml

@@ -2,6 +2,7 @@ package com.ReservationSystem.dao;
 
 
 import com.ReservationSystem.configdb.JDBCONFIG;
+import com.ReservationSystem.model.Agence;
 import com.ReservationSystem.model.Bureau;
 import com.ReservationSystem.model.Client;
 import com.ReservationSystem.model.Reservation;
@@ -178,13 +179,28 @@ public class ReservationDAO {
         }
     }
 
-    //we can do better email/subject/body must be read from a file or something like that
-    public void sendEmailVerification(ReservationInfo reservation, JavaMailSender javamailsender) {
-		SimpleMailMessage mail=new SimpleMailMessage();
+    
+	/*
+	 * public void sendEmailVerification(ReservationInfo reservation, JavaMailSender
+	 * javamailsender) { SimpleMailMessage mail=new SimpleMailMessage();
+	 * mail.setTo(reservation.getEmail());
+	 * mail.setFrom("oninebankensias@gmail.com");
+	 * mail.setSubject("Bank Reservation");
+	 * mail.setText("Bonjour Mr "+reservation.getPrenom()
+	 * +".\nNous vous confirmons que vous avez bien reserever votre place à l'agence... \nVoici votre clé de reservation : "
+	 * +reservation.getReservationId() +".\nCordialement.");
+	 * javamailsender.send(mail); System.out.println("Mail sent "); }
+	 */
+    
+    
+    public void sendEmailVerification(ReservationInfo reservation, JavaMailSender javamailsender) throws SQLException {
+		Bureau br= bureauDAO.findById(reservation.getBureauId());
+		Agence ag = br.getAgence();
+    	SimpleMailMessage mail=new SimpleMailMessage();
 		mail.setTo(reservation.getEmail());
 		mail.setFrom("oninebankensias@gmail.com");
 		mail.setSubject("Bank Reservation");
-		mail.setText("Bonjour Mr "+reservation.getPrenom()+".\nNous vous confirmons que vous avez bien reserever votre place à l'agence... \nVoici votre clé de reservation : "+reservation.getReservationId() +".\nCordialement.");
+		mail.setText("Bonjour Mr "+reservation.getNom()+".\nNous vous confirmons que vous avez bien résérever votre place á  l'agence "+ag.getNom()+" á  l'heure: "+reservation.getHoraire()+"\nVoici votre clé de reservation : "+reservation.getReservationId() +".\nCordialement.");
 		javamailsender.send(mail);
 		 System.out.println("Mail sent ");
     }

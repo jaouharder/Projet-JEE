@@ -7,6 +7,8 @@ import com.ReservationSystem.model.ReservationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -72,7 +74,12 @@ public class ReservationController {
     
     @PostMapping("/sendmail")
 	public void SendMail(@RequestBody ReservationInfo reservation) {
-    	reservationDAO.sendEmailVerification(reservation, javamailsender);		  
+    	try {
+			reservationDAO.sendEmailVerification(reservation, javamailsender);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		  
 	}
     
     @PutMapping("setDuree/{id}")

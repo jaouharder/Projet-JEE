@@ -39,7 +39,7 @@
 
     #map {
       position: absolute;
-      margin-top: 5%;
+      margin-top: 3.5%;
       top: 0;
       bottom: 0;
       width: 100%;
@@ -90,7 +90,7 @@ type="text/css"
                         <div class="name">CIN</div>
                         <div class="value">
                             <div class="input-group">
-                                <input id="cin" class="input--style-5" type="text" id="date" name="cin">
+                                <input id="cin" class="input--style-5" type="text" id="date" name="cin" required>
                                 <label class="label--desc">CIN</label>
                             </div>
                         </div>
@@ -101,13 +101,13 @@ type="text/css"
                             <div class="row row-space">
                                 <div class="col-2">
                                     <div class="input-group-desc">
-                                        <input class="input--style-5" type="text"  id="first_name" name="first_name" >
+                                        <input class="input--style-5" type="text"  id="first_name" name="first_name" required  >
                                         <label class="label--desc">first name</label>
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" id="last_name" name="last_name">
+                                        <input class="input--style-5" type="text" id="last_name" name="last_name" required>
                                         <label class="label--desc">last name</label>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@ type="text/css"
                         <div class="name">Email</div>
                         <div class="value">
                             <div class="input-group">
-                                <input class="input--style-5" type="email" id="email" name="email">
+                                <input class="input--style-5" type="email" id="email" name="email" required>
                                 <label class="label--desc">Email</label>
                             </div>
                         </div>
@@ -131,7 +131,7 @@ type="text/css"
                                 
                                 <div class="col-9">
                                     <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" id="agency_name" name="agency_name">
+                                        <input class="input--style-5" type="text" id="agency_name" name="agency_name" required >
                                         <label class="label--desc"> Agency</label>
                                     </div>
                                 </div>
@@ -143,8 +143,8 @@ type="text/css"
                         <div class="value">
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
-                                    <select  id="service" name="service">
-                                        <option disabled="disabled" selected="selected">Choose option</option>
+                                    <select  id="service" name="service"  required>
+                                        <option disabled="disabled" selected="selected">Choose a service</option>
                                         <option value="s.chéque" >Service chéque et virement</option>
                                         <option value="s.creation_compte" >Service creation de compte</option>
                                         <option value="s.ma3erftsh" >Service directeur</option>

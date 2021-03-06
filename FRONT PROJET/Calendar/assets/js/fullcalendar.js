@@ -191,7 +191,7 @@ GetReservations(service);
 		
 		select: function(start, end, allDay) {
 			//startdate=start;
-			startd=start;
+			
 			if(fois!=0){
 			 
 				Swal.fire({
@@ -213,6 +213,8 @@ GetReservations(service);
 				confirmButtonText: 'Yes, confirm it!'
 			  }).then((result) => {
 				if (result.isConfirmed) {
+				  bll=0;
+		          startd=start;
 				  Swal.fire(
 					'CONFIRMED!',
 					'',

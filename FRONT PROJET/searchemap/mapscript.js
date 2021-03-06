@@ -251,6 +251,11 @@ function Valid(lat,lng,latclicked,lngclicked){
 
    function SettingFormElements(Agency){
   
+    
+
+
+
+
        const first_name=document.getElementById("first_name");
        const last_name=document.getElementById("last_name");
        const email=document.getElementById("email");
@@ -260,6 +265,14 @@ function Valid(lat,lng,latclicked,lngclicked){
 
        agency_name.value=Agency.nom;
        agency_name.setAttribute('disabled',true);
+
+       first_name.value="";
+       cin.value="";
+       first_name.value="";
+       last_name.value="";
+      email.value="";
+     //agency_name.value="";
+     //service.value="";
        
 
        //this part commented can store bureaux ids into select options
@@ -311,15 +324,7 @@ function Valid(lat,lng,latclicked,lngclicked){
        //alert(service.value);
 
       
-       first_name.value="";
-
-       cin.value="";
-       first_name.value="";
-
-       last_name.value="";
-       email.value="";
-       agency_name.value="";
-       service.value="";
+      
        
        
 

@@ -1,0 +1,19 @@
+@startuml
+skinparam packageStyle rectangle
+left to right direction
+actor client
+actor employe
+rectangle reservation{
+  client-- (chercher une agence)
+  client-- (creation d'une reservation)
+  (creation d'une reservation) .down.> (verification des horaires) : include
+  client-- (modifier la reservation)
+  (modifier la reservation) <|-down- (modifier l'horaire)
+  (modifier la reservation) <|-down- (modifier le service)
+  (modifier l'horaire) .down.> (verification des horaires) : include
+  (modifier le service) ..> (verification des horaires) : include
+  client-- (annuler la reservation)
+  employe-- (consulter les reservations)
+  employe-- (marquer la fin d'une session du client)
+}
+@enduml

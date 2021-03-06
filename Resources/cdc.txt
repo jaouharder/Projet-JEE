@@ -1,0 +1,36 @@
+
+	Project specification:	(Cahier de charges)
+
+
+1-Context & definition:
+-----------------------
+
+	Making transfers, withdrawals or other services has never been easier. Everywhere in Morocco, we are always obliged to wait a long time for our turn. For example, you can arrive at the agency at 9am, but have to wait until noon, all this suffering to perform a simple operation.
+
+=================================================================================================
+
+2-Project goal:
+---------------
+
+	In order to satisfy the needs of consumers and give them the most benefits, with our app you can make online bookings from home on any date and choose the time that suits you without having to travel to the bank agency which will save you time and trouble, this app is a website that will allow customers of a bank to make a booking, modify it or cancel it, and also allows employees to check the coming bookings that they have.
+
+=================================================================================================
+
+3-Functional needs:
+-------------------
+
+	Clients can make a new reservation,
+		Select their preferred agency from a map,
+		Select preferred time depending on availability
+
+	Clients can modify an existing reservation’s time and/or service,
+		Verify client’s identity
+
+	Clients can cancel a reservation,
+		Verify client’s identity
+
+	Employees can view the coming reservations
+		Employees can login to their account,
+		Employees can switch to the next reservation,
+		Automatically record the time taken to finish a reservation
+

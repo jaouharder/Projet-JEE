@@ -13,27 +13,36 @@
 
 $(document).ready(function() {
 	var date = new Date();
-	var startd;
+	
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
  	var service = sessionStorage.getItem('service');
+	var operation = sessionStorage.getItem('operation'); 
+	var old_reservation = JSON.parse(sessionStorage.getItem("oldreservation"));
+	var startd;
+	var bll=0;
+	if(operation == 'modifier'){
+		startd=old_reservation.horaire;
+	}
 	var agence_id = sessionStorage.getItem('agence_id');
 	var nom = sessionStorage.getItem('nom');
 	var prenom = sessionStorage.getItem('prenom');
 	var email = sessionStorage.getItem('email');
 	var cin = sessionStorage.getItem('cin');
-	var brId=sessionStorage.getItem('bureau_id');
-	//var bureau_id=GetbureauId(agence_id,service);
-	console.log(service);
-	console.log(agence_id);
-	console.log(nom);
-	console.log(prenom);
-	console.log(email);
-	console.log(cin);
-	//console.log(bureau_id);
 	document.getElementById("but_res").addEventListener("click", async function() {
-		 let reservation={
+		if( typeof(startd)=='undefined'){
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'YOU FORGOT TO CHOSE YOUR TIME!',
+			  });
+			  bll=1;
+		
+		}else{
+		if(operation == 'create'){
+		let reservation={
+			 reservationId:0,
             horaire : startd,
             bureauId : service,
             cin: cin,
@@ -42,11 +51,51 @@ $(document).ready(function() {
             email : email
 		};
 
-		const objectContact=await fetch('http://localhost:8080/addreservation',{method:'Post',headers:new Headers({'Content-Type':'application/json'}),body :JSON.stringify(reservation)})
+		const objectContact=await fetch('http://localhost:8080/addreservation',{
+			method:'Post',
+			headers:new Headers({'Content-Type':'application/json'}),
+			body :JSON.stringify(reservation)
+		})
         const response=await objectContact.json();
         console.log(response);
-		const objectCct=await fetch('http://localhost:8080/sendmail',{method:'Post',headers:new Headers({'Content-Type':'application/json'}),body :JSON.stringify(reservation)})
+		reservation.reservationId=response;
+		const objectCct=await fetch('http://localhost:8080/sendmail',{
+			method:'Post',
+			headers:new Headers({'Content-Type':'application/json'}),
+			body :JSON.stringify(reservation)
+		}) }
+	}
+		 if (operation == 'modifier'){
+			
+			let reservation={
+				reservationId: old_reservation.reservationId,
+			   horaire : startd,
+			   bureauId : service,
+			   cin: old_reservation.client.cin,
+			   nom : old_reservation.client.nom,
+			   prenom : old_reservation.client.prenom,
+			   email : old_reservation.client.email
+		   };console.log(reservation);
+		   const obj=await fetch('http://localhost:8080/updatereservation/'+old_reservation.reservationId,{
+			method:'Put',
+			headers:new Headers({'Content-Type':'application/json'}),
+			body :JSON.stringify(reservation)
+		})
+		}
+		if(bll==0){
+		Swal.fire({
+			icon: 'success',
+			title: 'Your reservation has been saved',
+			showConfirmButton: false,
+			timer: 1500
+		  })
+		 
+		  setTimeout(function(){
+			window.location.href = "../index.html";
+			Swal.close();
+		 },1500); 
         //await objectCct.json();
+	}
 
 	  });
 
@@ -142,30 +191,51 @@ GetReservations(service);
 		
 		select: function(start, end, allDay) {
 			//startdate=start;
-			startd=start;
+			
 			if(fois!=0){
 			 
-			   window.alert('YOU ALREADY CHOSED YOUR TIME');
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'YOU ALREADY CHOSED YOUR TIME!',
+				  })
+
 
 			}
 		//	events.
-		    else{
-				var conf=window.confirm('YOU HAVE CHOSED THIS TIME : '+start+'\nAre you sure ?');
-		      	if(conf){
-				fois++;
-				calendar.fullCalendar('renderEvent',
-					{
-						title: "YOUR RESERVATION",
-						start: start,
-						end: end,
-						allDay: false,
-						className: 'important'
-					},
-					true // make the event "stick"
-				);
-			}}
-			calendar.fullCalendar('unselect');
-		},
+		    else{Swal.fire({
+				title: 'YOU HAVE CHOSED THIS TIME : '+start+'\nAre you sure ?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, confirm it!'
+			  }).then((result) => {
+				if (result.isConfirmed) {
+				  bll=0;
+		          startd=start;
+				  Swal.fire(
+					'CONFIRMED!',
+					'',
+					'success'
+				  )
+				
+			fois++;
+			calendar.fullCalendar('renderEvent',
+				{
+					title: "YOUR RESERVATION",
+					start: start,
+					end: end,
+					allDay: false,
+					className: 'important'
+				},
+				true // make the event "stick"
+			);}
+			  })
+	}
+		calendar.fullCalendar('unselect');
+	},
 		droppable: true,                // this allows things to be dropped onto the calendar !!!
 		drop: function(date, allDay) { // this function is called when something is dropped
 
@@ -5859,7 +5929,7 @@ function DayEventRenderer() {
 				if (dayDelta) {
 					eventDrop(this, event, dayDelta, 0, event.allDay, ev, ui);
 				}else{
-					eventElement.css('filter', ''); // clear IE opacity side-effects
+					eventElement.css('filter', ''); 
 					showEvents(event, eventElement);
 				}
 			}

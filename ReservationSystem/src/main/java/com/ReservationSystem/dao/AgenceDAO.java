@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ReservationSystem.configdb.JDBCONFIG;
@@ -63,7 +61,7 @@ public class AgenceDAO {
 			     String nom=result.getString("agence_name");
 				 String localisation=result.getString("localisation");
 				 float latitude=result.getFloat("latitude");
-				 float longitude=result.getFloat("latitude");
+				 float longitude=result.getFloat("longitude");//it was an error here
 				 BureauDAO bureau_service=new BureauDAO();
 				 List<Bureau> bureauList= bureau_service.getBureauxByAgId(id);
 				 Agence agence=new Agence(nom,localisation,latitude,longitude,bureauList);
@@ -95,8 +93,19 @@ public class AgenceDAO {
 		}
 	}
 	
-	
-	
+	//checks if employee account exists 
+	public boolean employeExists(int bureauId, String password) {
+		try {
+			stat = cnx.createStatement();
+			query = "select * from employe " +
+					"where bureau_id = " + bureauId + " AND password = \"" + password + "\";";
+			result = stat.executeQuery(query);
+			return result.next();
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		return false;
+	}
 	
 	
 	

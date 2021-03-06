@@ -66,4 +66,14 @@
     });
   
   })(jQuery); // End of use strict
+
+document.getElementById('delete').addEventListener('click',()=>{
+    console.log('clicked');
+    sessionStorage.setItem('operation',"delete");
+  });
+
+document.getElementById('edit').addEventListener('click',()=>{
+    console.log('clicked');
+    sessionStorage.setItem('operation',"edit");
+  });
   

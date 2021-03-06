@@ -25,7 +25,6 @@ public class AgenceController {
 	  private AgenceDAO agence_service;
 	  
 	  
-	  /*validation dont work i dont know why !!!!!!!!*/
 	  @PostMapping("/addagency")
 	  public boolean addAgency(@RequestBody @Valid Agence agence,Errors err ) {
 		  if(err.hasErrors()) {
@@ -42,10 +41,17 @@ public class AgenceController {
 	  }
 	
 	
-	  @GetMapping("/agency/id")
+	  @GetMapping("/agency/{id}")
       public Agence GetAgencybyID(@PathVariable(name = "id") int agence_id) {
 	       
 		  return  agence_service.findById(agence_id);   	
+	}
+
+	@PostMapping("/employe/{id}")
+	public boolean employeExists(@PathVariable(name = "id") int bureauId, @RequestBody String password) {
+	  	System.out.println(bureauId);
+	  	System.out.println(password);
+	  	return agence_service.employeExists(bureauId, password);
 	}
 	
 }

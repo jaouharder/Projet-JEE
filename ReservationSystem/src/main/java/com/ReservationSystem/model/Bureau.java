@@ -1,8 +1,3 @@
-/*****
-By DERROUICH JAOUHAR 
-ENSIAS-GL1
-*****/
-
 package com.ReservationSystem.model;
 
 import javax.validation.constraints.NotNull;
@@ -23,6 +18,8 @@ public class Bureau {
 	}
 
 	
+    
+
 
 	public Bureau(int id,@NotNull String service, @NotNull int bureau_disp, boolean isavailable) {
 		super();

@@ -115,7 +115,7 @@ function successLocation(position){
    //console.log(position);
    var markeruser = new mapboxgl.Marker({
     color: "#000000",
-    draggable: true
+    draggable: false
     }).setLngLat([position.coords.longitude,position.coords.latitude])
     .setPopup(new mapboxgl.Popup().setHTML("<h4>User</h4>"))
     .addTo(map);
@@ -194,12 +194,29 @@ function Valid(lat,lng,latclicked,lngclicked){
     
     let choice=document.getElementById('choice');
     document.getElementById('form').style.display="none";
-   
+    let modeView=0;
+
+
+
     choice.addEventListener('click',()=>{
+      modeView++;
+      console.log(modeView);
+      if(modeView%2==0){
+        choice.style.backgroundColor='#e71733';
+        choice.textContent='View Mode';
+        map.on('click',function(e){
+          if(modeView%2==0)
+          console.log('nothing happened..');
+        });
+      }
+      else{
+            choice.textContent='Selection Mode';
+            choice.style.backgroundColor='green';
             map.on('click', function(e) {
  // The event object (e) contains information like the
  // coordinates of the point on the map that was clicked.
- 
+ if(modeView%2!=0){
+ console.log("a thing happend");
  let point=e.lngLat;
  console.log(point);
  found=false;
@@ -218,14 +235,14 @@ function Valid(lat,lng,latclicked,lngclicked){
    
  }
 
-
+}
 
 
 
  
     
  });
-
+}
       
        
    });
@@ -234,6 +251,11 @@ function Valid(lat,lng,latclicked,lngclicked){
 
    function SettingFormElements(Agency){
   
+    
+
+
+
+
        const first_name=document.getElementById("first_name");
        const last_name=document.getElementById("last_name");
        const email=document.getElementById("email");
@@ -243,13 +265,23 @@ function Valid(lat,lng,latclicked,lngclicked){
 
        agency_name.value=Agency.nom;
        agency_name.setAttribute('disabled',true);
+
+       first_name.value="";
+       cin.value="";
+       first_name.value="";
+       last_name.value="";
+      email.value="";
+     //agency_name.value="";
+     //service.value="";
        
 
        //this part commented can store bureaux ids into select options
        service.children[1].value=Agency.bureauList[0].bureauId;
        service.children[2].value=Agency.bureauList[1].bureauId;
        service.children[3].value=Agency.bureauList[2].bureauId;
-
+       service.children[1].innerHTML=Agency.bureauList[0].service;
+       service.children[2].innerHTML=Agency.bureauList[1].service;
+       service.children[3].innerHTML=Agency.bureauList[2].service;
        //confirm and delete button
        var submit=document.getElementById('change');
        const deleletbnt=document.getElementById('delete');
@@ -280,43 +312,19 @@ function Valid(lat,lng,latclicked,lngclicked){
        
 
         
-        /*
-        let Reservation={
-         
-          horaire : null,
-          bureau : {
-                      service : service.value,
-                      agence : {
-                          id : Agency.id
-                      }
-          },
-          client : {
-                        nom : last_name.value,
-                        prenom :first_name.value,
-                        email :email.value
-          },
-            
-      }
-      console.log(Reservation);*/
       sessionStorage.setItem("cin", cin.value);
       sessionStorage.setItem("service", service.value);
       sessionStorage.setItem("agence_id", Agency.id);
       sessionStorage.setItem("nom", last_name.value);
       sessionStorage.setItem("prenom", first_name.value);
       sessionStorage.setItem("email", email.value);
+      sessionStorage.setItem("operation","create");
+
+       //alert(cin.value);
+       //alert(service.value);
 
       
-
       
-       first_name.value="";
-
-       cin.value="";
-       first_name.value="";
-
-       last_name.value="";
-       email.value="";
-       agency_name.value="";
-       service.value="";
        
        
 

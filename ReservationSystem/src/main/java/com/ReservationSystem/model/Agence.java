@@ -1,9 +1,6 @@
 package com.ReservationSystem.model;
 
 import java.util.List;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -67,8 +64,8 @@ public class Agence {
 
 
 
-	public void setLatitude(float latitude) {
-		this.latitude = latitude;
+	public void setLatitude(float d) {
+		this.latitude = d;
 	}
 
 
@@ -85,8 +82,8 @@ public class Agence {
 
 
 
-	public void setLongitude(float longitude) {
-		this.longitude = longitude;
+	public void setLongitude(float d) {
+		this.longitude = d;
 	}
 
 

@@ -30,6 +30,7 @@ Navigate to ```Front PROJECT/index.html``` and that's it
 ```docker run --name db_container -p 3307:3307 -d mysqlimg where “mysqlimg” is the name of mysql image```
 3. create mysql database user with username ***xenophobe1*** and password ***xeno1*** and grant all privileges to him.Command to do that :
 ```CREATE USER 'xenophobe1'@'%' IDENTIFIED BY 'xeno1';```
+
 ```GRANT ALL PRIVILEGES ON *.* TO 'xenophobe1'@'%'; ```
 4. create the database ***reservationdb*** .Use our script ***Reservationdb.sql*** to create the database tables automatically 
 5. Run the application image in a container.use the following command to do that:

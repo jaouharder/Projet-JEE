@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Mar 05, 2021 at 12:21 AM
--- Server version: 5.7.31
--- PHP Version: 7.3.21
+-- Host: 127.0.0.1
+-- Generation Time: Mar 06, 2021 at 11:39 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,22 +27,23 @@ SET time_zone = "+00:00";
 -- Table structure for table `agence`
 --
 
-DROP TABLE IF EXISTS `agence`;
-CREATE TABLE IF NOT EXISTS `agence` (
-  `agence_Id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `agence` (
+  `agence_Id` int(11) NOT NULL,
   `agence_name` varchar(50) NOT NULL,
   `localisation` varchar(100) NOT NULL,
   `latitude` float NOT NULL,
-  `longitude` float NOT NULL,
-  PRIMARY KEY (`agence_Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+  `longitude` float NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `agence`
 --
 
 INSERT INTO `agence` (`agence_Id`, `agence_name`, `localisation`, `latitude`, `longitude`) VALUES
-(1, 'CIH Kortoba', 'LOT Kortoba DEMNAT Maroc', 31.7923, -7.08017);
+(1, 'CIH Kortoba', 'LOT Kortoba MEKNES Maroc', 33.8603, -5.54765),
+(10, 'CIH ELMANSSOUR', 'MENSOUR 123 MEKNES Maroc', 33.8665, -5.57764),
+(11, 'CIH HEMRIA', 'HEMRIA 123 MEKNES Maroc', 33.9067, -5.54058),
+(12, 'CIH WISSLAN', 'WISLLAN123 MEKNES Maroc', 33.912, -5.48507);
 
 -- --------------------------------------------------------
 
@@ -50,25 +51,31 @@ INSERT INTO `agence` (`agence_Id`, `agence_name`, `localisation`, `latitude`, `l
 -- Table structure for table `bureau`
 --
 
-DROP TABLE IF EXISTS `bureau`;
-CREATE TABLE IF NOT EXISTS `bureau` (
-  `bureau_Id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `bureau` (
+  `bureau_Id` int(11) NOT NULL,
   `service` varchar(50) NOT NULL,
   `isavailable` tinyint(1) NOT NULL,
   `agence_Id` int(11) NOT NULL,
-  `bureau_availability` int(11) NOT NULL,
-  PRIMARY KEY (`bureau_Id`),
-  KEY `agence_Id` (`agence_Id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  `bureau_availability` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `bureau`
 --
 
 INSERT INTO `bureau` (`bureau_Id`, `service`, `isavailable`, `agence_Id`, `bureau_availability`) VALUES
-(1, 'service chéque et virement', 1, 1, 86),
-(2, 'service creation de compte', 1, 1, 88),
-(3, 'service directeur', 1, 1, 40);
+(1, 'service chéque et virement', 1, 1, 81),
+(2, 'service creation de compte', 1, 1, 100),
+(3, 'service directeur', 1, 1, 100),
+(4, 'service chéque et virement', 1, 10, 100),
+(7, 'service creation de compte', 1, 10, 100),
+(10, 'service directeur', 1, 10, 100),
+(5, 'service chéque et virement', 1, 11, 100),
+(8, 'service creation de compte', 1, 11, 100),
+(11, 'service directeur', 1, 11, 100),
+(6, 'service chéque et virement', 1, 12, 100),
+(9, 'service creation de compte', 1, 12, 100),
+(12, 'service directeur', 1, 12, 100);
 
 -- --------------------------------------------------------
 
@@ -76,15 +83,18 @@ INSERT INTO `bureau` (`bureau_Id`, `service`, `isavailable`, `agence_Id`, `burea
 -- Table structure for table `employe`
 --
 
-DROP TABLE IF EXISTS `employe`;
-CREATE TABLE IF NOT EXISTS `employe` (
-  `employe_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `employe` (
+  `employe_id` int(11) NOT NULL,
   `bureau_id` int(11) NOT NULL,
-  `password` text NOT NULL,
-  PRIMARY KEY (`employe_id`),
-  UNIQUE KEY `bureau_id` (`bureau_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+  `password` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `employe`
+--
+
+INSERT INTO `employe` (`employe_id`, `bureau_id`, `password`) VALUES
+(6, 1, 'xeno');
 
 -- --------------------------------------------------------
 
@@ -92,20 +102,85 @@ CREATE TABLE IF NOT EXISTS `employe` (
 -- Table structure for table `reservation`
 --
 
-DROP TABLE IF EXISTS `reservation`;
-CREATE TABLE IF NOT EXISTS `reservation` (
-  `reservation_Id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `reservation` (
+  `reservation_Id` int(11) NOT NULL,
   `cin_client` varchar(50) NOT NULL,
   `nom_client` varchar(50) NOT NULL,
   `prenom_client` varchar(50) NOT NULL,
   `email_client` varchar(50) NOT NULL,
   `horaire` datetime NOT NULL,
   `duree` int(11) NOT NULL,
-  `bureau_id` int(11) NOT NULL,
-  PRIMARY KEY (`reservation_Id`),
-  KEY `bureau_id` (`bureau_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+  `bureau_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `reservation`
+--
+
+INSERT INTO `reservation` (`reservation_Id`, `cin_client`, `nom_client`, `prenom_client`, `email_client`, `horaire`, `duree`, `bureau_id`) VALUES
+(34, 'UA12345', 'DERROUICH', 'JAOUHAR', 'JAOUHARDER@GMAIL.COM', '2021-03-08 15:00:00', 0, 1),
+(36, 'XXXXX', 'BENTTALEB', 'AMINE', 'benettalebamine@gmail.com', '2021-03-08 10:00:00', 0, 1),
+(38, 'YYYYYY', 'ELMASBAHY', 'IDRISS', 'idriss.elmasbahy.45@gmail.com', '2021-03-08 09:30:00', 0, 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `agence`
+--
+ALTER TABLE `agence`
+  ADD PRIMARY KEY (`agence_Id`);
+
+--
+-- Indexes for table `bureau`
+--
+ALTER TABLE `bureau`
+  ADD PRIMARY KEY (`bureau_Id`),
+  ADD KEY `agence_Id` (`agence_Id`);
+
+--
+-- Indexes for table `employe`
+--
+ALTER TABLE `employe`
+  ADD PRIMARY KEY (`employe_id`),
+  ADD UNIQUE KEY `bureau_id` (`bureau_id`);
+
+--
+-- Indexes for table `reservation`
+--
+ALTER TABLE `reservation`
+  ADD PRIMARY KEY (`reservation_Id`),
+  ADD KEY `bureau_id` (`bureau_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `agence`
+--
+ALTER TABLE `agence`
+  MODIFY `agence_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `bureau`
+--
+ALTER TABLE `bureau`
+  MODIFY `bureau_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `employe`
+--
+ALTER TABLE `employe`
+  MODIFY `employe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `reservation`
+--
+ALTER TABLE `reservation`
+  MODIFY `reservation_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -41,13 +41,13 @@ function checkLogin() {
     return exist;
 }
 
-async function DeleteReservation(reservation_id){
+/*async function DeleteReservation(reservation_id){
 
 const echo=await fetch('http://localhost:8080/deletereservation/'+reservation_id,{method:'DELETE',headers:new Headers({'Content-Type':'application/json'})})
         const response=await echo.json();
         console.log(response);
 
-     }
+     }*/
 
 async function deleteReservations(){
 	const data=await fetch('http://localhost:8080/reservations');
@@ -59,7 +59,7 @@ async function deleteReservations(){
 	
 
    
-     boutton.addEventListener('click', ()=>{
+     boutton.addEventListener('click', async ()=>{
 	 
 	 let idReservation = document.getElementById('reservationid').value; 
      let cinClient = document.getElementById('usercin').value;
@@ -68,7 +68,10 @@ async function deleteReservations(){
         
         if(idReservation==reservation.reservationId && cinClient==reservation.client.cin){
 	      console.log(idReservation);
-          DeleteReservation(idReservation); 
+          const echo=await fetch('http://localhost:8080/deletereservation/'+idReservation,{method:'DELETE',headers:new Headers({'Content-Type':'application/json'})})
+          const response=await echo.json();
+          console.log(response);
+ 
         }
       } 
 

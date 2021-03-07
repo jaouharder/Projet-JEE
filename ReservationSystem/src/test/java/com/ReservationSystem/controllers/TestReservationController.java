@@ -24,7 +24,7 @@ class TestReservationController {
 		 ResponseEntity<Reservation> reservationReturned = testRestTemplate.getForEntity( "/reservation/2", Reservation.class);
 		 assertEquals("Hajar",reservationReturned.getBody().getClient().getNom());
 		 assertEquals(1,reservationReturned.getBody().getBureau().getBureauId());
-		 assertEquals(0,reservationReturned.getBody().getDuree());
+		 assertEquals(15978,reservationReturned.getBody().getDuree());
 	}
 	
 }

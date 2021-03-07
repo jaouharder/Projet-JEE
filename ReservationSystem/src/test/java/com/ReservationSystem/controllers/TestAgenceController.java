@@ -42,21 +42,23 @@ class TestAgenceController {
 	}
 
 	
+	
 	  //tester addgencybyID() de la classe Agencecontroller
 	  
 	  @Test void addAgencyTest() { Agence agenceToCreate; Bureau bureau1 = new
-		  Bureau(4,"schèque",56,true); Bureau bureau2 = new
-		  Bureau(5,"scompte",70,true); Bureau bureau3 = new
-		  Bureau(6,"svairement",20,true); List<Bureau> bureaux = new
-		  ArrayList<Bureau>(); bureaux.add(bureau1); bureaux.add(bureau2);
-		  bureaux.add(bureau3); agenceToCreate = new
-		  Agence("CIH AGDAL","AGDAL RABAT Maroc",(float)33.24,(float)-8.6,bureaux);
-		  
-		  HttpEntity<Agence> request = new HttpEntity<>(agenceToCreate);
-		  ResponseEntity<Boolean> response = testRestTemplate.postForEntity(
-		  "/addagency",request,Boolean.class); assertEquals(true, response.getBody());
+	  Bureau(4,"schèque",56,true); Bureau bureau2 = new
+	  Bureau(5,"scompte",70,true); Bureau bureau3 = new
+	  Bureau(6,"svairement",20,true); List<Bureau> bureaux = new
+	  ArrayList<Bureau>(); bureaux.add(bureau1); bureaux.add(bureau2);
+	  bureaux.add(bureau3); agenceToCreate = new
+	  Agence("CIH AGDAL","AGDAL RABAT Maroc",(float)33.24,(float)-8.6,bureaux);
+	  
+	  HttpEntity<Agence> request = new HttpEntity<>(agenceToCreate);
+	  ResponseEntity<Boolean> response = testRestTemplate.postForEntity(
+	  "/addagency",request,Boolean.class); assertEquals(true, response.getBody());
 	  
 	  }
+	 
 	 
 	
 

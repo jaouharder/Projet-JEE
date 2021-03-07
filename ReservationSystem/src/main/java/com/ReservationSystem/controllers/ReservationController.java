@@ -56,10 +56,10 @@ public class ReservationController {
     @PutMapping("updatereservation/{id}")
     public void updateReservation(@RequestBody ReservationInfo reservation,
                                   @PathVariable(value = "id") int reservationId) {
-    	bureau_service.calculTaux(reservationDAO.GetBuIdByReservationId(reservationId)); 
+    	int oldBureauId = reservationDAO.GetBuIdByReservationId(reservationId);
     	System.out.println("update controller");
         reservationDAO.updateReservation(reservationId, reservation.getHoraire(), reservation.getBureauId());
-        
+        bureau_service.calculTaux(oldBureauId); 
     	bureau_service.calculTaux(reservation.getBureauId());
     }
 

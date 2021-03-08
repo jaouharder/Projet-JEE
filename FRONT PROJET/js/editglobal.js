@@ -101,34 +101,12 @@ document.getElementById("last_name").setAttribute('disabled',true);
 document.getElementById("date").setAttribute('disabled',true);
 const submit=document.getElementById('change');
 const deleletbnt=document.getElementById('delete');
-/*
-Update problems : khassna ndirou update gha l date o service o agence sinon ta hajja khera 
-makhaseha te9ass(ila ghelet f semia cheghelo hadak ) o prblm 2 fach kaneselectionner service ga3 makayupdata f database 
-*/ 
+
 function SetNewAttributes(reservation){
     reservation.horaire=date;
     reservation.agency_name=agency_name;
     reservation.service=service.value;
 }
-/*
-let feedBackJS;
-async function UpdateReservation(Reservation) {
-     const feedBack=await fetch("http://localhost:8080/updatereservation/"+1,
-     { method: 'PUT',headers: new Headers({'Content-Type' :'application/json'}),body : JSON.stringify(Reservation)});
-      feedBackJS=await feedBack.json();
-     console.log('response :'+feedBackJS);
-}
-
-
-async function DeleteReservation(reservation_Id){
-    
-     const response=await fetch("http://localhost:8080/deletereservation/"+Reservation.reservationId,
-     {method: 'DELETE',headers : new Headers({'Content-Type' :'application/json'})});
-     feedBackJS=await response.json();
-      console.log("delete :"+feedBackJS);
-}
-*/
-/*********/ 
 
 
 async function FetchApi(url = '',data = {}) {

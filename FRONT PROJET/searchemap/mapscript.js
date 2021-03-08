@@ -1,66 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmVuZXR0YWxlYiIsImEiOiJja2w3NWV1dnMyZXp4MnZsYjB1ZW9qcDVjIn0.fSUhZIwlPmxnd95ioh7e-Q';
 
  
-
-//navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
-/*
-function successLocation(position){
-   console.log(position);
-   Setupmap([position.coords.longitude,position.coords.latitude]);
-   
-}
-
-mapboxgl.accessToken = 'pk.eyJ1IjoieGVub3Bob2JlIiwiYSI6ImNrbDZwdHhpaTByZ2QycXFwdXk1bTNnY2kifQ.MVEO4m4i88F8hNRaIAXXaA';
-mapboxgl.accessToken = 'pk.eyJ1IjoiYmVuZXR0YWxlYiIsImEiOiJja2w3NWV1dnMyZXp4MnZsYjB1ZW9qcDVjIn0.fSUhZIwlPmxnd95ioh7e-Q';
-
-
-mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.0/mapbox-gl-rtl-text.js');
-//navigator.geolocation.getCurrentPosition(successLocation,errorLocation,{enableHighAccuracy:true});
-/* hhh
-
-function successLocation(position){
-   console.log(position);
-   Setupmap([position.coords.longitude,position.coords.latitude]);
-   
-}
-function errorLocation(){
-  Setupmap([])
-}
-function Setupmap(center){
-   
-     //create map object with a defined center and a zoom 
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center :center,
-        zoom : 8
-      });
-      //add controlle buttons zoom in, zoom out
-      map.addControl(new mapboxgl.NavigationControl());
-      //add a marker in a specified location with red color
-      var marker = new mapboxgl.Marker({
-color: "#000000",
-draggable: true
-}).setLngLat([2.1734,41.3851])
-.setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
-.addTo(map);
-}
-Setupmap([2.1734,41.3851]);
-var new_york = new mapboxgl.LngLat(-74.0060, 40.7128);
-var los_angeles = new mapboxgl.LngLat(-118.2437, 34.0522);
-alert(new_york.distanceTo(los_angeles)/1000); 
-*/
- 
-
-
-
-
-
-
-
-
-
-
 let userlocation;
  
  var map;

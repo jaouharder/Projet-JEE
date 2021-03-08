@@ -1,14 +1,3 @@
-/*!
- * FullCalendar v1.6.4
- * Docs & License: http://arshaw.com/fullcalendar/
- * (c) 2013 Adam Shaw
- */
-
-/*
- * Use fullcalendar.css for basic styling.
- * For event drag & drop, requires jQuery UI draggable.
- * For event resizing, requires jQuery UI resizable.
- */
 
 
 $(document).ready(function() {
@@ -41,6 +30,8 @@ $(document).ready(function() {
 		
 		}else{
 		if(operation == 'create'){
+			
+	    document.getElementById("but_res").disabled="true";
 		let reservation={
 			 reservationId:0,
             horaire : startd,
@@ -48,7 +39,8 @@ $(document).ready(function() {
             cin: cin,
             nom : nom,
             prenom : prenom,
-            email : email
+            email : email,
+        
 		};
 
 		const objectContact=await fetch('http://localhost:8080/addreservation',{
@@ -94,18 +86,13 @@ $(document).ready(function() {
 			window.location.href = "../index.html";
 			Swal.close();
 		 },1500); 
-        //await objectCct.json();
+        
 	}
 
 	  });
 
 
-    /* async function GetbureauId(agence_id,service){
-		const data=await fetch('http://localhost:8080/bureauId/'+agence_id+'/'+service);
-		const id=await data.json();
-		return Number(id);
-	} */
-	
+    
 	async function GetReservations(BureauID){
 		const data=await fetch('http://localhost:8080/reservation/bureau/'+BureauID);
 		const reservations=await data.json();

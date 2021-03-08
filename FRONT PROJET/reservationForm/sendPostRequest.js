@@ -22,5 +22,5 @@ async function postData() {
         },
         body: data
     });
-    //return response.json();
+   
 }

@@ -76,6 +76,7 @@ $(document).ready(function() {
 		})}
 
         else{
+	        document.getElementById("next").disabled="true";
             let duree = Number(new Date()-recdate);
         recdate=new Date();
         const obj=await fetch('http://localhost:8080/setDuree/'+DayRes[indexes-1].reservationId,{
